@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_embedded_help_role">
+    <sys_embedded_help_role action="INSERT_OR_UPDATE">
+        <order>10</order>
+        <role display_value="x_1297629_confer_0.conference management admin" name="x_1297629_confer_0.conference management admin">ce3ae88383bb12100c1eb3a6feaad38a</role>
+        <sys_class_name>sys_embedded_help_role</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2025-02-22 21:20:32</sys_created_on>
+        <sys_id>8a3ae88383bb12100c1eb3a6feaad38d</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>ce3ae88383bb12100c1eb3a6feaad38a</sys_name>
+        <sys_package display_value="Conference Management" source="x_1297629_confer_0">463ae88383bb12100c1eb3a6feaad383</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Conference Management">463ae88383bb12100c1eb3a6feaad383</sys_scope>
+        <sys_update_name>sys_embedded_help_role_8a3ae88383bb12100c1eb3a6feaad38d</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2025-02-22 21:20:32</sys_updated_on>
+    </sys_embedded_help_role>
+</record_update>

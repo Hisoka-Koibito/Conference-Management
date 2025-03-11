@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?><database>
+    <element db_object_id="84ea68c383bb12100c1eb3a6feaad344" label="Conferences" max_length="40" name="x_1297629_confer_0_conferences" type="collection">
+        <element label="Location" max_length="32" name="location" reference="cmn_location" type="reference"/>
+        <element choice="1" label="Subject" max_length="255" name="subject" type="choice">
+            <choice>
+                <element inactive_on_update="false" label="Home Economics" sequence="5" value="home_economics"/>
+                <element inactive_on_update="false" label="Mathematics" sequence="6" value="mathematics"/>
+                <element inactive_on_update="false" label="BioTech" sequence="0" value="biotech"/>
+                <element inactive_on_update="false" label="Theology" sequence="10" value="theology"/>
+                <element inactive_on_update="false" label="Technology" sequence="9" value="Technology"/>
+                <element inactive_on_update="false" label="Health and Wellness" sequence="3" value="health_and_wellness"/>
+                <element inactive_on_update="false" label="Political Science" sequence="7" value="political_science"/>
+                <element inactive_on_update="false" label="Criminal Justice" sequence="1" value="criminal_justice"/>
+                <element inactive_on_update="false" label="Engineering" sequence="2" value="engineering"/>
+                <element inactive_on_update="false" label="Trolling" sequence="11" value="trolling"/>
+                <element inactive_on_update="false" label="Science" sequence="8" value="science"/>
+                <element inactive_on_update="false" label="History" sequence="4" value="history"/>
+            </choice>
+        </element>
+        <element label="Name" max_length="255" name="name" type="string"/>
+        <element label="End Date" max_length="40" name="end_date" type="calendar_date_time"/>
+        <element label="Active" max_length="255" name="active" type="boolean"/>
+        <element default="javascript:current.getTableName();" label="Class" max_length="80" name="sys_class_name" type="sys_class_name"/>
+        <element attributes="edge_encryption_enabled=true" default="javascript:global.getNextObjNumberPadded();" label="Number" max_length="40" name="number" type="string"/>
+        <element label="Description" max_length="255" name="description" type="string"/>
+        <element label="Start Date" max_length="40" name="start_date" type="calendar_date_time"/>
+        <element label="Manager" max_length="32" name="manager" reference="sys_user" reference_qual="roles=ce3ae88383bb12100c1eb3a6feaad38a^ORroles=ce3ae88383bb12100c1eb3a6feaad390^EQ" reference_qual_condition="roles=ce3ae88383bb12100c1eb3a6feaad38a^ORroles=ce3ae88383bb12100c1eb3a6feaad390^EQ" type="reference"/>
+        <index name="index">
+            <element name="location"/>
+        </index>
+        <index name="index2">
+            <element name="manager"/>
+        </index>
+        <index name="index3">
+            <element name="sys_class_name"/>
+        </index>
+    </element>
+</database>

@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update>
+    <sys_choice action="INSERT_OR_UPDATE" field="subject" table="x_1297629_confer_0_conferences" version="3">
+        <sys_choice_set action="INSERT_OR_UPDATE">
+            <element>subject</element>
+            <name>x_1297629_confer_0_conferences</name>
+            <sys_class_name>sys_choice_set</sys_class_name>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2025-03-05 22:08:27</sys_created_on>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_name>subject</sys_name>
+            <sys_package display_value="Conference Management" source="x_1297629_confer_0">463ae88383bb12100c1eb3a6feaad383</sys_package>
+            <sys_policy/>
+            <sys_scope display_value="Conference Management">463ae88383bb12100c1eb3a6feaad383</sys_scope>
+            <sys_update_name>sys_choice_x_1297629_confer_0_conferences_subject</sys_update_name>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2025-03-05 22:08:27</sys_updated_on>
+        </sys_choice_set>
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>subject</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>BioTech</label>
+            <language>en</language>
+            <name>x_1297629_confer_0_conferences</name>
+            <sequence>0</sequence>
+            <synonyms/>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2025-03-05 22:08:49</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_mod_count>4</sys_mod_count>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2025-03-10 15:26:29</sys_updated_on>
+            <value>biotech</value>
+        </sys_choice>
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>subject</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>Criminal Justice</label>
+            <language>en</language>
+            <name>x_1297629_confer_0_conferences</name>
+            <sequence>1</sequence>
+            <synonyms/>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2025-03-05 22:10:07</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_mod_count>6</sys_mod_count>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2025-03-10 15:26:29</sys_updated_on>
+            <value>criminal_justice</value>
+        </sys_choice>
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>subject</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>Engineering</label>
+            <language>en</language>
+            <name>x_1297629_confer_0_conferences</name>
+            <sequence>2</sequence>
+            <synonyms/>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2025-03-05 22:09:31</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_mod_count>6</sys_mod_count>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2025-03-10 15:26:29</sys_updated_on>
+            <value>engineering</value>
+        </sys_choice>
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>subject</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>Health and Wellness</label>
+            <language>en</language>
+            <name>x_1297629_confer_0_conferences</name>
+            <sequence>3</sequence>
+            <synonyms/>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2025-03-05 22:11:06</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_mod_count>6</sys_mod_count>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2025-03-10 15:26:29</sys_updated_on>
+            <value>health_and_wellness</value>
+        </sys_choice>
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>subject</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>History</label>
+            <language>en</language>
+            <name>x_1297629_confer_0_conferences</name>
+            <sequence>4</sequence>
+            <synonyms/>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2025-03-05 22:09:22</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_mod_count>6</sys_mod_count>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2025-03-10 15:26:29</sys_updated_on>
+            <value>history</value>
+        </sys_choice>
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>subject</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>Home Economics</label>
+            <language>en</language>
+            <name>x_1297629_confer_0_conferences</name>
+            <sequence>5</sequence>
+            <synonyms/>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2025-03-05 22:09:51</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_mod_count>6</sys_mod_count>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2025-03-10 15:26:29</sys_updated_on>
+            <value>home_economics</value>
+        </sys_choice>
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>subject</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>Mathematics</label>
+            <language>en</language>
+            <name>x_1297629_confer_0_conferences</name>
+            <sequence>6</sequence>
+            <synonyms/>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2025-03-05 22:08:34</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_mod_count>6</sys_mod_count>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2025-03-10 15:26:29</sys_updated_on>
+            <value>mathematics</value>
+        </sys_choice>
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>subject</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>Political Science</label>
+            <language>en</language>
+            <name>x_1297629_confer_0_conferences</name>
+            <sequence>7</sequence>
+            <synonyms/>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2025-03-05 22:08:27</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_mod_count>6</sys_mod_count>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2025-03-10 15:26:29</sys_updated_on>
+            <value>political_science</value>
+        </sys_choice>
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>subject</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>Science</label>
+            <language>en</language>
+            <name>x_1297629_confer_0_conferences</name>
+            <sequence>8</sequence>
+            <synonyms/>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2025-03-05 22:10:36</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_mod_count>6</sys_mod_count>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2025-03-10 15:26:29</sys_updated_on>
+            <value>science</value>
+        </sys_choice>
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>subject</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>Technology</label>
+            <language>en</language>
+            <name>x_1297629_confer_0_conferences</name>
+            <sequence>9</sequence>
+            <synonyms/>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2025-03-10 15:26:29</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2025-03-10 15:26:29</sys_updated_on>
+            <value>Technology</value>
+        </sys_choice>
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>subject</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>Theology</label>
+            <language>en</language>
+            <name>x_1297629_confer_0_conferences</name>
+            <sequence>10</sequence>
+            <synonyms/>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2025-03-05 22:10:56</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_mod_count>6</sys_mod_count>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2025-03-10 15:26:29</sys_updated_on>
+            <value>theology</value>
+        </sys_choice>
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>subject</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>Trolling</label>
+            <language>en</language>
+            <name>x_1297629_confer_0_conferences</name>
+            <sequence>11</sequence>
+            <synonyms/>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2025-03-05 22:10:48</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_mod_count>6</sys_mod_count>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2025-03-10 15:26:29</sys_updated_on>
+            <value>trolling</value>
+        </sys_choice>
+    </sys_choice>
+</record_update>

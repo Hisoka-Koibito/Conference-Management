@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?><database>
+    <element db_object_id="fc6e600b83bb12100c1eb3a6feaad3ef" label="Speakers" max_length="40" name="x_1297629_confer_0_speakers" type="collection">
+        <element choice="1" label="Specialty" max_length="40" name="specialty" type="choice">
+            <choice>
+                <element inactive_on_update="false" label="Political Science" sequence="7" value="political_science"/>
+                <element inactive_on_update="false" label="Mathematics" sequence="6" value="mathematics"/>
+                <element inactive_on_update="false" label="Trolling" sequence="11" value="trolling"/>
+                <element inactive_on_update="false" label="Home Economics" sequence="5" value="home_economics"/>
+                <element inactive_on_update="false" label="Health and Wellness" sequence="3" value="health_and_wellness"/>
+                <element inactive_on_update="false" label="History" sequence="4" value="history"/>
+                <element inactive_on_update="false" label="BioTech" sequence="0" value="biotech"/>
+                <element inactive_on_update="false" label="Criminal Justice" sequence="1" value="criminal_justice"/>
+                <element inactive_on_update="false" label="Theology" sequence="10" value="theology"/>
+                <element inactive_on_update="false" label="Engineering" sequence="2" value="engineering"/>
+                <element inactive_on_update="false" label="Science" sequence="8" value="science"/>
+                <element inactive_on_update="false" label="Technology" sequence="9" value="Technology"/>
+            </choice>
+        </element>
+        <element display="true" label="Name" max_length="40" name="display_name" type="string"/>
+        <element attributes="edge_encryption_enabled=true" default="javascript:global.getNextObjNumberPadded();" label="Number" max_length="40" name="number" type="string"/>
+        <element label="Speaker" max_length="32" name="user" reference="sys_user" type="reference"/>
+        <element default="javascript:current.getTableName();" label="Class" max_length="80" name="sys_class_name" type="sys_class_name"/>
+        <element label="Bio" max_length="255" name="bio" type="string"/>
+        <element label="Title" max_length="255" name="title" type="string"/>
+        <index name="index">
+            <element name="sys_class_name"/>
+        </index>
+        <index name="index2">
+            <element name="user"/>
+        </index>
+    </element>
+</database>

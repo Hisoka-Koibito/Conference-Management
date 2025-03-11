@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_m2m">
+    <sys_m2m action="INSERT_OR_UPDATE">
+        <from_table>x_1297629_confer_0_conferences</from_table>
+        <m2m_from_field>x_1297629_confer_0_conferences</m2m_from_field>
+        <m2m_from_label>Speakers</m2m_from_label>
+        <m2m_table>x_1297629_confer_0_m2m_x_1297629_co_x_1297629_co</m2m_table>
+        <m2m_to_field>x_1297629_confer_0_speakers</m2m_to_field>
+        <m2m_to_label>Conferences</m2m_to_label>
+        <sys_class_name>sys_m2m</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2025-02-22 21:55:07</sys_created_on>
+        <sys_id>6cf1704f83bb12100c1eb3a6feaad3b1</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>x_1297629_confer_0_m2m_x_1297629_co_x_1297629_co</sys_name>
+        <sys_package display_value="Conference Management" source="x_1297629_confer_0">463ae88383bb12100c1eb3a6feaad383</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Conference Management">463ae88383bb12100c1eb3a6feaad383</sys_scope>
+        <sys_update_name>sys_m2m_6cf1704f83bb12100c1eb3a6feaad3b1</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2025-02-22 21:55:07</sys_updated_on>
+        <to_table>x_1297629_confer_0_speakers</to_table>
+    </sys_m2m>
+</record_update>

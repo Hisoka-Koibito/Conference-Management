@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update>
+    <sys_ui_list parent="" relationship="" sys_domain="global" table="x_1297629_confer_0_speakers" version="2" view="">
+        <sys_ui_list_element action="INSERT_OR_UPDATE">
+            <average_value>false</average_value>
+            <element>title</element>
+            <list_id display_value="x_1297629_confer_0_speakers" element="NULL" name="x_1297629_confer_0_speakers" parent="NULL" relationship="NULL" sys_domain="global" view="Default view">2524d5dd838022100c1eb3a6feaad316</list_id>
+            <max_value>false</max_value>
+            <min_value>false</min_value>
+            <position>0</position>
+            <sum>false</sum>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2025-03-02 00:10:03</sys_created_on>
+            <sys_id>6124d5dd838022100c1eb3a6feaad317</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2025-03-02 00:10:03</sys_updated_on>
+        </sys_ui_list_element>
+        <sys_ui_list_element action="INSERT_OR_UPDATE">
+            <average_value>false</average_value>
+            <element>user</element>
+            <list_id display_value="x_1297629_confer_0_speakers" element="NULL" name="x_1297629_confer_0_speakers" parent="NULL" relationship="NULL" sys_domain="global" view="Default view">2524d5dd838022100c1eb3a6feaad316</list_id>
+            <max_value>false</max_value>
+            <min_value>false</min_value>
+            <position>1</position>
+            <sum>false</sum>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2025-03-02 00:10:03</sys_created_on>
+            <sys_id>e124d5dd838022100c1eb3a6feaad317</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2025-03-02 00:10:03</sys_updated_on>
+        </sys_ui_list_element>
+        <sys_ui_list_element action="INSERT_OR_UPDATE">
+            <average_value>false</average_value>
+            <element>specialty</element>
+            <list_id display_value="x_1297629_confer_0_speakers" element="NULL" name="x_1297629_confer_0_speakers" parent="NULL" relationship="NULL" sys_domain="global" view="Default view">2524d5dd838022100c1eb3a6feaad316</list_id>
+            <max_value>false</max_value>
+            <min_value>false</min_value>
+            <position>2</position>
+            <sum>false</sum>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2025-03-02 00:10:03</sys_created_on>
+            <sys_id>6524d5dd838022100c1eb3a6feaad317</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2025-03-02 00:10:03</sys_updated_on>
+        </sys_ui_list_element>
+        <sys_ui_list_element action="INSERT_OR_UPDATE">
+            <average_value>false</average_value>
+            <element>bio</element>
+            <list_id display_value="x_1297629_confer_0_speakers" element="NULL" name="x_1297629_confer_0_speakers" parent="NULL" relationship="NULL" sys_domain="global" view="Default view">2524d5dd838022100c1eb3a6feaad316</list_id>
+            <max_value>false</max_value>
+            <min_value>false</min_value>
+            <position>3</position>
+            <sum>false</sum>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2025-03-02 00:10:03</sys_created_on>
+            <sys_id>e524d5dd838022100c1eb3a6feaad317</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2025-03-02 00:10:03</sys_updated_on>
+        </sys_ui_list_element>
+        <sys_ui_list action="INSERT_OR_UPDATE">
+            <average_value>false</average_value>
+            <element/>
+            <max_value>false</max_value>
+            <min_value>false</min_value>
+            <name>x_1297629_confer_0_speakers</name>
+            <parent/>
+            <position/>
+            <relationship/>
+            <sum>false</sum>
+            <sys_class_name>sys_ui_list</sys_class_name>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2025-03-02 00:10:03</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>2524d5dd838022100c1eb3a6feaad316</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_name>x_1297629_confer_0_speakers</sys_name>
+            <sys_package display_value="Conference Management" source="x_1297629_confer_0">463ae88383bb12100c1eb3a6feaad383</sys_package>
+            <sys_policy/>
+            <sys_scope display_value="Conference Management">463ae88383bb12100c1eb3a6feaad383</sys_scope>
+            <sys_update_name>sys_ui_list_x_1297629_confer_0_speakers_null</sys_update_name>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2025-03-02 00:10:03</sys_updated_on>
+            <sys_user/>
+            <view display_value="Default view" name="NULL">Default view</view>
+            <view_name/>
+        </sys_ui_list>
+    </sys_ui_list>
+</record_update>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update>
+    <sys_ui_related sys_domain="global" table="x_1297629_confer_0_conferences" version="2" view="">
+        <sys_ui_related_list_entry action="INSERT_OR_UPDATE">
+            <filter/>
+            <list_id display_value="Conferences - Default view" name="x_1297629_confer_0_conferences" related_list="NULL" sys_domain="global" view="Default view">7cf23c0f83bb12100c1eb3a6feaad312</list_id>
+            <order_by/>
+            <position>0</position>
+            <related_list>x_1297629_confer_0_m2m_x_1297629_co_x_1297629_co.x_1297629_confer_0_conferences</related_list>
+            <sys_class_name>sys_ui_related_list_entry</sys_class_name>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2025-02-22 21:58:40</sys_created_on>
+            <sys_id>78f23c0f83bb12100c1eb3a6feaad314</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2025-02-22 21:58:40</sys_updated_on>
+        </sys_ui_related_list_entry>
+        <sys_ui_related_list action="INSERT_OR_UPDATE">
+            <calculated_name>Conferences - Default view</calculated_name>
+            <filter/>
+            <name>x_1297629_confer_0_conferences</name>
+            <order_by/>
+            <position/>
+            <related_list/>
+            <sys_class_name>sys_ui_related_list</sys_class_name>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2025-02-22 21:58:40</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>7cf23c0f83bb12100c1eb3a6feaad312</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_name>Conferences - Default view</sys_name>
+            <sys_package display_value="Conference Management" source="x_1297629_confer_0">463ae88383bb12100c1eb3a6feaad383</sys_package>
+            <sys_policy/>
+            <sys_scope display_value="Conference Management">463ae88383bb12100c1eb3a6feaad383</sys_scope>
+            <sys_update_name>sys_ui_related_x_1297629_confer_0_conferences_null</sys_update_name>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2025-02-22 21:58:40</sys_updated_on>
+            <sys_user/>
+            <view display_value="Default view" name="NULL">Default view</view>
+            <view_name/>
+        </sys_ui_related_list>
+    </sys_ui_related>
+</record_update>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?><database>
+    <element db_object_id="7c22bc0f83bb12100c1eb3a6feaad3a1" label="Conferences and Speakers" max_length="40" name="x_1297629_confer_0_m2m_x_1297629_co_x_1297629_co" type="collection">
+        <element attributes="encode_utf8=false" label="Speakers" max_length="32" name="x_1297629_confer_0_speakers" reference="x_1297629_confer_0_speakers" type="reference"/>
+        <element attributes="encode_utf8=false" label="Conferences" max_length="32" name="x_1297629_confer_0_conferences" reference="x_1297629_confer_0_conferences" type="reference"/>
+        <index name="index">
+            <element name="x_1297629_confer_0_conferences"/>
+        </index>
+        <index name="index2">
+            <element name="x_1297629_confer_0_speakers"/>
+        </index>
+    </element>
+</database>
