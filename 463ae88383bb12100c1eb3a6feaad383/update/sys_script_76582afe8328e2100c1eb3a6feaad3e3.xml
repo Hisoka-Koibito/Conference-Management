@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update sys_domain="global" table="sys_script">
+    <sys_script action="INSERT_OR_UPDATE">
+        <abort_action>false</abort_action>
+        <access>package_private</access>
+        <action_delete>false</action_delete>
+        <action_insert>true</action_insert>
+        <action_query>false</action_query>
+        <action_update>true</action_update>
+        <active>true</active>
+        <add_message>false</add_message>
+        <advanced>true</advanced>
+        <change_fields>false</change_fields>
+        <client_callable>false</client_callable>
+        <collection>x_1297629_confer_0_conferences</collection>
+        <condition/>
+        <description/>
+        <execute_function>false</execute_function>
+        <filter_condition/>
+        <is_rest>false</is_rest>
+        <message/>
+        <name>Set Active Field</name>
+        <order>100</order>
+        <priority>100</priority>
+        <rest_method/>
+        <rest_method_text/>
+        <rest_service/>
+        <rest_service_text/>
+        <rest_variables/>
+        <role_conditions/>
+        <script><![CDATA[const actConf = new GlideRecord('x_1297629_confer_0_conferences');
+
+// Query for active conferences
+actConf.addQuery('end_date', '>', new GlideDateTime());  // Check end date relative to current day
+actConf.query();
+
+// Loop through each active conference record
+if (actConf.next()) {
+    // Check if the end_date is in the past
+    const endDate = new GlideDateTime(actConf.end_date);
+    const currentDate = new GlideDateTime();
+
+    // If the conference's end date has not passed, activate it
+    if (endDate > currentDate) {
+        actConf.active = true; // Set 'active' field to true
+
+        actConf.update();
+    }
+}
+]]></script>
+        <sys_class_name>sys_script</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2025-03-31 18:42:02</sys_created_on>
+        <sys_domain>global</sys_domain>
+        <sys_domain_path>/</sys_domain_path>
+        <sys_id>76582afe8328e2100c1eb3a6feaad3e3</sys_id>
+        <sys_mod_count>6</sys_mod_count>
+        <sys_name>Set Active Field</sys_name>
+        <sys_overrides/>
+        <sys_package display_value="Conference Management" source="x_1297629_confer_0">463ae88383bb12100c1eb3a6feaad383</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Conference Management">463ae88383bb12100c1eb3a6feaad383</sys_scope>
+        <sys_update_name>sys_script_76582afe8328e2100c1eb3a6feaad3e3</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2025-03-31 18:51:18</sys_updated_on>
+        <template/>
+        <when>before</when>
+    </sys_script>
+    <sys_translated_text action="delete_multiple" query="documentkey=76582afe8328e2100c1eb3a6feaad3e3"/>
+</record_update>

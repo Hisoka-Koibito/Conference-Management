@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_script_include">
+    <sys_script_include action="DELETE">
+        <access>public</access>
+        <active>true</active>
+        <api_name>x_1297629_confer_0.Create Conference Processor</api_name>
+        <caller_access/>
+        <client_callable>false</client_callable>
+        <description/>
+        <mobile_callable>true</mobile_callable>
+        <name>Create Conference Processor</name>
+        <sandbox_callable>false</sandbox_callable>
+        <script><![CDATA[var CreateConferenceProcessor = Class.create();
+CreateConferenceProcessor.prototype = {
+  // Extend AbstractAjaxProcessor to make the Script Include callable via GlideAjax
+  initialize: function() {
+    // Constructor logic if necessary
+  },
+
+  // Process the incoming request
+  processRequest: function() {
+    var action = this.getParameter('sys_id');  // Action from the client-side
+    var conferenceData = this.getParameter('conferenceData');  // The JSON string with form data
+
+    // Check the action and call the appropriate method
+    if (action === 'createConference') {
+      return this.createConference(JSON.parse(conferenceData));  // Parse and process the data
+    }
+
+    return "Invalid Action";  // Default response if action is not recognized
+  },
+
+  // Create the conference record
+  createConference: function(conferenceRecord) {
+    var gr = new GlideRecord('x_1297629_confer_0_conferences');  // Your custom table
+    gr.initialize();
+
+    gr.name = conferenceRecord.name;
+    gr.location = conferenceRecord.location;
+
+    // Convert the dates from string to GlideDateTime
+    var startDate = new GlideDateTime(conferenceRecord.start_date);  // Parse the ISO string into GlideDateTime
+    var endDate = new GlideDateTime(conferenceRecord.end_date);
+
+    gr.start_date = startDate;
+    gr.end_date = endDate;
+
+    gr.manager = conferenceRecord.manager;
+    gr.subject = conferenceRecord.subject;
+
+    // Insert the new record and return the record ID
+    var recordID = gr.insert();
+    return recordID ? recordID : "Error in record creation";
+  }
+};
+]]></script>
+        <sys_class_name>sys_script_include</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2025-04-05 18:11:17</sys_created_on>
+        <sys_id>9d319c2c83f4ea100c1eb3a6feaad35a</sys_id>
+        <sys_mod_count>3</sys_mod_count>
+        <sys_name>Create Conference Processor</sys_name>
+        <sys_package display_value="Conference Management" source="x_1297629_confer_0">463ae88383bb12100c1eb3a6feaad383</sys_package>
+        <sys_policy>read</sys_policy>
+        <sys_scope display_value="Conference Management">463ae88383bb12100c1eb3a6feaad383</sys_scope>
+        <sys_update_name>sys_script_include_9d319c2c83f4ea100c1eb3a6feaad35a</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2025-04-05 18:39:48</sys_updated_on>
+    </sys_script_include>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="Conference Management">463ae88383bb12100c1eb3a6feaad383</application>
+        <file_path/>
+        <instance_id>17d2969b1b704698c8432f8dee4bcb4d</instance_id>
+        <instance_name>dev241523</instance_name>
+        <name>sys_script_include_9d319c2c83f4ea100c1eb3a6feaad35a</name>
+        <payload>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;record_update table="sys_script_include"&gt;&lt;sys_script_include action="INSERT_OR_UPDATE"&gt;&lt;access&gt;public&lt;/access&gt;&lt;active&gt;true&lt;/active&gt;&lt;api_name&gt;x_1297629_confer_0.Create Conference Processor&lt;/api_name&gt;&lt;caller_access/&gt;&lt;client_callable&gt;false&lt;/client_callable&gt;&lt;description/&gt;&lt;mobile_callable&gt;true&lt;/mobile_callable&gt;&lt;name&gt;Create Conference Processor&lt;/name&gt;&lt;sandbox_callable&gt;false&lt;/sandbox_callable&gt;&lt;script&gt;&lt;![CDATA[var CreateConferenceProcessor = Class.create();
+CreateConferenceProcessor.prototype = {
+  // Extend AbstractAjaxProcessor to make the Script Include callable via GlideAjax
+  initialize: function() {
+    // Constructor logic if necessary
+  },
+
+  // Process the incoming request
+  processRequest: function() {
+    var action = this.getParameter('sys_id');  // Action from the client-side
+    var conferenceData = this.getParameter('conferenceData');  // The JSON string with form data
+
+    // Check the action and call the appropriate method
+    if (action === 'createConference') {
+      return this.createConference(JSON.parse(conferenceData));  // Parse and process the data
+    }
+
+    return "Invalid Action";  // Default response if action is not recognized
+  },
+
+  // Create the conference record
+  createConference: function(conferenceRecord) {
+    var gr = new GlideRecord('x_1297629_confer_0_conferences');  // Your custom table
+    gr.initialize();
+
+    gr.name = conferenceRecord.name;
+    gr.location = conferenceRecord.location;
+
+    // Convert the dates from string to GlideDateTime
+    var startDate = new GlideDateTime(conferenceRecord.start_date);  // Parse the ISO string into GlideDateTime
+    var endDate = new GlideDateTime(conferenceRecord.end_date);
+
+    gr.start_date = startDate;
+    gr.end_date = endDate;
+
+    gr.manager = conferenceRecord.manager;
+    gr.subject = conferenceRecord.subject;
+
+    // Insert the new record and return the record ID
+    var recordID = gr.insert();
+    return recordID ? recordID : "Error in record creation";
+  }
+};
+]]&gt;&lt;/script&gt;&lt;sys_class_name&gt;sys_script_include&lt;/sys_class_name&gt;&lt;sys_created_by&gt;admin&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2025-04-05 18:11:17&lt;/sys_created_on&gt;&lt;sys_id&gt;9d319c2c83f4ea100c1eb3a6feaad35a&lt;/sys_id&gt;&lt;sys_mod_count&gt;3&lt;/sys_mod_count&gt;&lt;sys_name&gt;Create Conference Processor&lt;/sys_name&gt;&lt;sys_package display_value="Conference Management" source="x_1297629_confer_0"&gt;463ae88383bb12100c1eb3a6feaad383&lt;/sys_package&gt;&lt;sys_policy&gt;read&lt;/sys_policy&gt;&lt;sys_scope display_value="Conference Management"&gt;463ae88383bb12100c1eb3a6feaad383&lt;/sys_scope&gt;&lt;sys_update_name&gt;sys_script_include_9d319c2c83f4ea100c1eb3a6feaad35a&lt;/sys_update_name&gt;&lt;sys_updated_by&gt;admin&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2025-04-05 18:39:48&lt;/sys_updated_on&gt;&lt;/sys_script_include&gt;&lt;/record_update&gt;</payload>
+        <payload_hash>-723992497</payload_hash>
+        <record_name>Create Conference Processor</record_name>
+        <reverted_from/>
+        <source>5dc244e0831cee100c1eb3a6feaad3a0</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2025-04-05 18:39:48</sys_created_on>
+        <sys_id>913858e48338ea100c1eb3a6feaad359</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>19607407a6d0000001</sys_recorded_at>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2025-04-05 18:39:48</sys_updated_on>
+        <type>Script Include</type>
+        <update_guid>193858e45738ea10552ab35bc72d7858</update_guid>
+        <update_guid_history>193858e45738ea10552ab35bc72d7858:-723992497,add718249638ea10bd0e622ab2b935f0:-1448822613,a5d39c60a538ea10a28c46439f82ac9a:81640171,7ba1d4ecc7f4ea102cdd82ea7e6632e2:-958175908</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete/>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2025-04-05 18:46:28</sys_created_on>
+        <sys_db_object display_value="" name="sys_script_include">sys_script_include</sys_db_object>
+        <sys_id>6f43ec71134b4fc09df1be425abac400</sys_id>
+        <sys_metadata>9d319c2c83f4ea100c1eb3a6feaad35a</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Create Conference Processor</sys_name>
+        <sys_package display_value="Conference Management" source="x_1297629_confer_0">463ae88383bb12100c1eb3a6feaad383</sys_package>
+        <sys_parent/>
+        <sys_policy>read</sys_policy>
+        <sys_scope display_value="Conference Management">463ae88383bb12100c1eb3a6feaad383</sys_scope>
+        <sys_scope_delete display_value="">8523059317144f7e8d3537b20b985829</sys_scope_delete>
+        <sys_update_name>sys_script_include_9d319c2c83f4ea100c1eb3a6feaad35a</sys_update_name>
+        <sys_update_version display_value="sys_script_include_9d319c2c83f4ea100c1eb3a6feaad35a">913858e48338ea100c1eb3a6feaad359</sys_update_version>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2025-04-05 18:46:28</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

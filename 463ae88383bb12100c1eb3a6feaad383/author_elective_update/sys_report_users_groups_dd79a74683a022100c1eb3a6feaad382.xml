@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_report_users_groups">
+    <sys_report_users_groups action="DELETE">
+        <group_id/>
+        <report_id display_value="">1579a74683a022100c1eb3a6feaad382</report_id>
+        <sys_class_name>sys_report_users_groups</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2025-03-29 15:29:13</sys_created_on>
+        <sys_id>dd79a74683a022100c1eb3a6feaad382</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>1579a74683a022100c1eb3a6feaad382</sys_name>
+        <sys_package display_value="Conference Management" source="x_1297629_confer_0">463ae88383bb12100c1eb3a6feaad383</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Conference Management">463ae88383bb12100c1eb3a6feaad383</sys_scope>
+        <sys_update_name>sys_report_users_groups_dd79a74683a022100c1eb3a6feaad382</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2025-03-29 15:29:13</sys_updated_on>
+        <user_id display_value="System Administrator">6816f79cc0a8016401c5a33be04be441</user_id>
+    </sys_report_users_groups>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="Conference Management">463ae88383bb12100c1eb3a6feaad383</application>
+        <file_path/>
+        <instance_id>17d2969b1b704698c8432f8dee4bcb4d</instance_id>
+        <instance_name>dev241523</instance_name>
+        <name>sys_report_users_groups_dd79a74683a022100c1eb3a6feaad382</name>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_report_users_groups"><sys_report_users_groups action="INSERT_OR_UPDATE"><group_id/><report_id display_value="">1579a74683a022100c1eb3a6feaad382</report_id><sys_class_name>sys_report_users_groups</sys_class_name><sys_created_by>admin</sys_created_by><sys_created_on>2025-03-29 15:29:13</sys_created_on><sys_id>dd79a74683a022100c1eb3a6feaad382</sys_id><sys_mod_count>0</sys_mod_count><sys_name>1579a74683a022100c1eb3a6feaad382</sys_name><sys_package display_value="Conference Management" source="x_1297629_confer_0">463ae88383bb12100c1eb3a6feaad383</sys_package><sys_policy/><sys_scope display_value="Conference Management">463ae88383bb12100c1eb3a6feaad383</sys_scope><sys_update_name>sys_report_users_groups_dd79a74683a022100c1eb3a6feaad382</sys_update_name><sys_updated_by>admin</sys_updated_by><sys_updated_on>2025-03-29 15:29:13</sys_updated_on><user_id display_value="System Administrator">6816f79cc0a8016401c5a33be04be441</user_id></sys_report_users_groups></record_update>]]></payload>
+        <payload_hash>-1426282015</payload_hash>
+        <record_name>1579a74683a022100c1eb3a6feaad382</record_name>
+        <reverted_from/>
+        <source>5dc244e0831cee100c1eb3a6feaad3a0</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2025-03-29 15:29:13</sys_created_on>
+        <sys_id>d179a74683a022100c1eb3a6feaad385</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>195e2857cff0000001</sys_recorded_at>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2025-03-29 15:29:13</sys_updated_on>
+        <type>Report Users and Groups</type>
+        <update_guid>d579a74609a022109ded012284dece84</update_guid>
+        <update_guid_history>d579a74609a022109ded012284dece84:-1426282015</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete/>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2025-03-29 18:07:49</sys_created_on>
+        <sys_db_object display_value="" name="sys_report_users_groups">sys_report_users_groups</sys_db_object>
+        <sys_id>445c17b92679440cad0ba02edef555c1</sys_id>
+        <sys_metadata>dd79a74683a022100c1eb3a6feaad382</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>1579a74683a022100c1eb3a6feaad382</sys_name>
+        <sys_package display_value="Conference Management" source="x_1297629_confer_0">463ae88383bb12100c1eb3a6feaad383</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_scope display_value="Conference Management">463ae88383bb12100c1eb3a6feaad383</sys_scope>
+        <sys_scope_delete display_value="">8523059317144f7e8d3537b20b985829</sys_scope_delete>
+        <sys_update_name>sys_report_users_groups_dd79a74683a022100c1eb3a6feaad382</sys_update_name>
+        <sys_update_version display_value="sys_report_users_groups_dd79a74683a022100c1eb3a6feaad382">d179a74683a022100c1eb3a6feaad385</sys_update_version>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2025-03-29 18:07:49</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

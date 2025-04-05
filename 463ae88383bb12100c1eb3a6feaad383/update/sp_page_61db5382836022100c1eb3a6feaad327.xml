@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_page">
+    <sp_page action="INSERT_OR_UPDATE">
+        <category>custom</category>
+        <css>$banner-768-svg : "d9bc1319533130101865ddeeff7b12ba.iix";
+
+main.body {
+  padding-top: 0rem !important;
+}
+
+/* Padding for container after banner image */
+.padding-top {
+  padding-top: 2.4rem;
+}
+
+/* Padding bottom after each widget */
+.child-b-margin &gt; span &gt; div &gt; *{
+  margin-bottom: 2.4rem;
+}
+
+.mobile-banner {
+  background-position: right bottom !important;
+}
+
+/* Max width for Containers to stay in view port*/
+.container {
+  max-width: 100%;
+}
+
+@media (max-width: 48em) {
+  .ng-scope.mobile-banner {
+    background-image:url($banner-768-svg) !important;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+  .child-b-margin &gt; span &gt; div &gt; *{
+    margin-bottom: 1.6rem;
+  }
+  .padding-right {
+    padding-right: 0rem;
+  }
+   .padding-top {
+    padding-top: 1.6rem;
+  }
+}
+
+@media (max-width : 62em) {
+  .container {
+    width : 100%;
+  }
+  .col-md-4 {
+    width : 100%
+  }
+  .col-md-8 {
+    width : 100%
+  }
+  .left-column{
+    padding-left: 2.4rem;
+    padding-right: 2.4rem;	
+  }	
+  .right-column{
+    padding-left: 2.4rem;
+    padding-right: 2.4rem;	
+  }
+}
+
+@media (min-width: 62em) {	
+  .container {	
+    padding-left: 1.2rem;	
+    padding-right: 1.2rem;	
+  }	
+  .left-column{
+    padding-right: 0rem;	
+  }	
+  .right-column{
+    padding-left: 2.4rem;
+    padding-right: 1.6rem;
+  }	
+}</css>
+        <draft>false</draft>
+        <dynamic_title_structure/>
+        <human_readable_url_structure/>
+        <id>conference_management_dashboard</id>
+        <internal>false</internal>
+        <omit_watcher>false</omit_watcher>
+        <public>false</public>
+        <roles/>
+        <seo_script/>
+        <short_description>An employee's one stop shop to get help.</short_description>
+        <sys_class_name>sp_page</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2025-03-29 14:29:42</sys_created_on>
+        <sys_id>61db5382836022100c1eb3a6feaad327</sys_id>
+        <sys_mod_count>3</sys_mod_count>
+        <sys_name>conference_management_dashboard</sys_name>
+        <sys_package display_value="Conference Management" source="x_1297629_confer_0">463ae88383bb12100c1eb3a6feaad383</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Conference Management">463ae88383bb12100c1eb3a6feaad383</sys_scope>
+        <sys_update_name>sp_page_61db5382836022100c1eb3a6feaad327</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2025-03-29 15:51:59</sys_updated_on>
+        <title>Conference Management Dashboard</title>
+        <use_seo_script>false</use_seo_script>
+    </sp_page>
+    <sys_translated_text action="delete_multiple" query="documentkey=61db5382836022100c1eb3a6feaad327"/>
+</record_update>

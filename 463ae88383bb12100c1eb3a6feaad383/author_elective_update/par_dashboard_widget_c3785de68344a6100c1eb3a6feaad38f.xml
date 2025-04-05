@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update sys_domain="global" table="par_dashboard_widget">
+    <par_dashboard_widget action="DELETE">
+        <canvas display_value="">4be411e28344a6100c1eb3a6feaad338</canvas>
+        <component display_value="Pie">96abe7e38d8790718022c5630a92176c</component>
+        <component_props>{"drilldownLabel":null,"selectedElements":[],"configVersion":"23.0.0-ci-SNAPSHOT","chartSize":null,"showDataLabels":false,"dataLabelsType":"both","maxLabelSize":null,"truncationType":"end","showRegister":true,"registerPosition":"bottom","registerOrientation":"horizontal","showRegisterOnSameLine":false,"showRegisterValue":false,"legendHorizontalAlignment":"center","legendMaxItemWidth":null,"legendExpandToFit":false,"showRegisterPercentage":false,"colorConfig":{"type":"default"},"newReporting":false,"enableAddZerosAtApi":true,"additionalGroupByConfig":[{"id":"x_1297629_confer_0_conferences","label":"Conferences"},{"id":"x_1297629_confer_0_speakers","label":"Speakers"},{"id":"x_1297629_confer_0_conferences.location","label":"Conferences &gt; Location"},{"id":"x_1297629_confer_0_conferences.subject","label":"Conferences &gt; Subject"}],"dataSources":[{"isDatabaseView":false,"allowRealTime":true,"label":"Conferences and Speakers","sourceType":"table","tableOrViewName":"x_1297629_confer_0_m2m_x_1297629_co_x_1297629_co","filterQuery":"","reportSourceSysId":null,"preferredVisualizations":["d24d53f60350de7a652caf3188a46ed2"],"id":"dGFibGV4XzEyOTc2MjlfY29uZmVyXzBfbTJtX3hfMTI5NzYyOV9jb194XzEyOTc2MjlfY28xNzQxMjEwNDI2NDI0","dataCategories":["trend","group","simple"]}],"showHeader":true,"showTotalAggregate":false,"showSubAggregate":false,"showFirstGroupAggregate":false,"showSecondGroupAggregate":false,"hideMatrixAggregate":false,"wrapTitle":false,"showLoadingIndicator":false,"showHeaderSeparator":false,"contextMenuActions":[],"title":null,"headerTitle":"All Conferences and Speakers","headingLevel":2,"description":null,"showBorder":true,"groupByConfig":null,"bareBorder":false,"formats":null,"dataCategory":null,"telemetry":null,"showDataPassthrough":false,"showAdditionalGroupBySelector":false,"allowAdditionalGroupByPerMetric":false,"metrics":[{"dataSource":"dGFibGV4XzEyOTc2MjlfY29uZmVyXzBfbTJtX3hfMTI5NzYyOV9jb194XzEyOTc2MjlfY28xNzQxMjEwNDI2NDI0","id":"ZEdGaWJHVjRYekV5T1RjMk1qbGZZMjl1Wm1WeVh6QmZiVEp0WDNoZk1USTVOell5T1Y5amIxOTRYekV5T1RjMk1qbGZZMjh4TnpReE1qRXdOREkyTkRJMDE3NDEyMTA0MjgxNDU=","aggregateFunction":"COUNT","numberFormat":{"customFormat":false},"axisId":"primary"}],"groupBy":[{"groupBy":[{"dataSource":"dGFibGV4XzEyOTc2MjlfY29uZmVyXzBfbTJtX3hfMTI5NzYyOV9jb194XzEyOTc2MjlfY28xNzQxMjEwNDI2NDI0","groupByField":"x_1297629_confer_0_conferences","isRange":false,"isChoice":false,"isPaBucket":false}],"maxNumberOfGroups":10,"numberOfGroupsBasedOn":"NO_OF_GROUP_BASED_ON_PER_METRIC","showOthers":false,"disableRanges":false}],"filterPerMetric":[],"sortBy":"value","sortByOrder":"desc","trendBy":null,"showChange":false,"showChangePercentage":false,"showTarget":false,"showForecast":false,"forecastConfig":null,"showForecastRange":false,"showTrend":false,"showConfidenceBand":false,"showGapPercentage":false,"showSparkline":false,"showMetricLabel":false,"showThreshold":false,"showComment":false,"showTotalValue":null,"followFilters":true,"showFilterIcon":true,"enableRealTimeUpdate":false,"enableDrilldown":true,"enableClickAndStay":false,"showDataTable":false,"enableCustomEmptyState":false,"componentId":"49wgozef","emptyStateIllustration":"no-data","emptyStateHeading":"No data available.","emptyStateHeadingLevel":3,"emptyStateContent":"There are no scores available for the selected criteria. Contact your admin for more info.","emptyStateAlignment":"vertical-centered","refreshFrequency":null,"backgroundRefreshInterval":null,"standardFormatData":null,"hideDevSettings":false,"configPropModifiers":{},"filterConfigurations":"@state.parFilters","showMaximumRange":false,"allowChangeDateRange":false,"showDateRangeByDefault":false,"applyDateRange":false,"chartExtraConfig":null,"numberOfPeriods":3,"showAbsolutePeriod":false,"scoreType":null,"showChangeFrom":"previous","startTime":null,"endTime":null,"useCurrentDateForEnd":false,"period":"M","useDataCache":false,"cacheExpirationTime":0,"showCacheTime":true,"isComponentInView":null,"pageId":null,"dateFormat":"default","showRefresh":true,"showFilterAsSeparateSeries":false,"id":"headerTitle","value":"All Conferences and Speakers","noDebounce":true,"propLabel":"Chart title"}</component_props>
+        <h>18</h>
+        <name/>
+        <stored_component/>
+        <sys_class_name>par_dashboard_widget</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2025-03-05 21:41:24</sys_created_on>
+        <sys_domain>global</sys_domain>
+        <sys_domain_path>/</sys_domain_path>
+        <sys_id>c3785de68344a6100c1eb3a6feaad38f</sys_id>
+        <sys_mod_count>9</sys_mod_count>
+        <sys_name/>
+        <sys_overrides/>
+        <sys_package display_value="Conference Management" source="x_1297629_confer_0">463ae88383bb12100c1eb3a6feaad383</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Conference Management">463ae88383bb12100c1eb3a6feaad383</sys_scope>
+        <sys_update_name>par_dashboard_widget_c3785de68344a6100c1eb3a6feaad38f</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2025-03-15 14:06:27</sys_updated_on>
+        <visualization/>
+        <w>16</w>
+        <widget_props/>
+        <x>32</x>
+        <y>0</y>
+    </par_dashboard_widget>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="Conference Management">463ae88383bb12100c1eb3a6feaad383</application>
+        <file_path/>
+        <instance_id>17d2969b1b704698c8432f8dee4bcb4d</instance_id>
+        <instance_name>dev241523</instance_name>
+        <name>par_dashboard_widget_c3785de68344a6100c1eb3a6feaad38f</name>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update sys_domain="global" table="par_dashboard_widget"><par_dashboard_widget action="INSERT_OR_UPDATE"><canvas display_value="">4be411e28344a6100c1eb3a6feaad338</canvas><component display_value="Pie">96abe7e38d8790718022c5630a92176c</component><component_props>{"drilldownLabel":null,"selectedElements":[],"configVersion":"23.0.0-ci-SNAPSHOT","chartSize":null,"showDataLabels":false,"dataLabelsType":"both","maxLabelSize":null,"truncationType":"end","showRegister":true,"registerPosition":"bottom","registerOrientation":"horizontal","showRegisterOnSameLine":false,"showRegisterValue":false,"legendHorizontalAlignment":"center","legendMaxItemWidth":null,"legendExpandToFit":false,"showRegisterPercentage":false,"colorConfig":{"type":"default"},"newReporting":false,"enableAddZerosAtApi":true,"additionalGroupByConfig":[{"id":"x_1297629_confer_0_conferences","label":"Conferences"},{"id":"x_1297629_confer_0_speakers","label":"Speakers"},{"id":"x_1297629_confer_0_conferences.location","label":"Conferences &gt; Location"},{"id":"x_1297629_confer_0_conferences.subject","label":"Conferences &gt; Subject"}],"dataSources":[{"isDatabaseView":false,"allowRealTime":true,"label":"Conferences and Speakers","sourceType":"table","tableOrViewName":"x_1297629_confer_0_m2m_x_1297629_co_x_1297629_co","filterQuery":"","reportSourceSysId":null,"preferredVisualizations":["d24d53f60350de7a652caf3188a46ed2"],"id":"dGFibGV4XzEyOTc2MjlfY29uZmVyXzBfbTJtX3hfMTI5NzYyOV9jb194XzEyOTc2MjlfY28xNzQxMjEwNDI2NDI0","dataCategories":["trend","group","simple"]}],"showHeader":true,"showTotalAggregate":false,"showSubAggregate":false,"showFirstGroupAggregate":false,"showSecondGroupAggregate":false,"hideMatrixAggregate":false,"wrapTitle":false,"showLoadingIndicator":false,"showHeaderSeparator":false,"contextMenuActions":[],"title":null,"headerTitle":"All Conferences and Speakers","headingLevel":2,"description":null,"showBorder":true,"groupByConfig":null,"bareBorder":false,"formats":null,"dataCategory":null,"telemetry":null,"showDataPassthrough":false,"showAdditionalGroupBySelector":false,"allowAdditionalGroupByPerMetric":false,"metrics":[{"dataSource":"dGFibGV4XzEyOTc2MjlfY29uZmVyXzBfbTJtX3hfMTI5NzYyOV9jb194XzEyOTc2MjlfY28xNzQxMjEwNDI2NDI0","id":"ZEdGaWJHVjRYekV5T1RjMk1qbGZZMjl1Wm1WeVh6QmZiVEp0WDNoZk1USTVOell5T1Y5amIxOTRYekV5T1RjMk1qbGZZMjh4TnpReE1qRXdOREkyTkRJMDE3NDEyMTA0MjgxNDU=","aggregateFunction":"COUNT","numberFormat":{"customFormat":false},"axisId":"primary"}],"groupBy":[{"groupBy":[{"dataSource":"dGFibGV4XzEyOTc2MjlfY29uZmVyXzBfbTJtX3hfMTI5NzYyOV9jb194XzEyOTc2MjlfY28xNzQxMjEwNDI2NDI0","groupByField":"x_1297629_confer_0_conferences","isRange":false,"isChoice":false,"isPaBucket":false}],"maxNumberOfGroups":10,"numberOfGroupsBasedOn":"NO_OF_GROUP_BASED_ON_PER_METRIC","showOthers":false,"disableRanges":false}],"filterPerMetric":[],"sortBy":"value","sortByOrder":"desc","trendBy":null,"showChange":false,"showChangePercentage":false,"showTarget":false,"showForecast":false,"forecastConfig":null,"showForecastRange":false,"showTrend":false,"showConfidenceBand":false,"showGapPercentage":false,"showSparkline":false,"showMetricLabel":false,"showThreshold":false,"showComment":false,"showTotalValue":null,"followFilters":true,"showFilterIcon":true,"enableRealTimeUpdate":false,"enableDrilldown":true,"enableClickAndStay":false,"showDataTable":false,"enableCustomEmptyState":false,"componentId":"49wgozef","emptyStateIllustration":"no-data","emptyStateHeading":"No data available.","emptyStateHeadingLevel":3,"emptyStateContent":"There are no scores available for the selected criteria. Contact your admin for more info.","emptyStateAlignment":"vertical-centered","refreshFrequency":null,"backgroundRefreshInterval":null,"standardFormatData":null,"hideDevSettings":false,"configPropModifiers":{},"filterConfigurations":"@state.parFilters","showMaximumRange":false,"allowChangeDateRange":false,"showDateRangeByDefault":false,"applyDateRange":false,"chartExtraConfig":null,"numberOfPeriods":3,"showAbsolutePeriod":false,"scoreType":null,"showChangeFrom":"previous","startTime":null,"endTime":null,"useCurrentDateForEnd":false,"period":"M","useDataCache":false,"cacheExpirationTime":0,"showCacheTime":true,"isComponentInView":null,"pageId":null,"dateFormat":"default","showRefresh":true,"showFilterAsSeparateSeries":false,"id":"headerTitle","value":"All Conferences and Speakers","noDebounce":true,"propLabel":"Chart title"}</component_props><h>18</h><name/><stored_component/><sys_class_name>par_dashboard_widget</sys_class_name><sys_created_by>admin</sys_created_by><sys_created_on>2025-03-05 21:41:24</sys_created_on><sys_domain>global</sys_domain><sys_domain_path>/</sys_domain_path><sys_id>c3785de68344a6100c1eb3a6feaad38f</sys_id><sys_mod_count>9</sys_mod_count><sys_name/><sys_overrides/><sys_package display_value="Conference Management" source="x_1297629_confer_0">463ae88383bb12100c1eb3a6feaad383</sys_package><sys_policy/><sys_scope display_value="Conference Management">463ae88383bb12100c1eb3a6feaad383</sys_scope><sys_update_name>par_dashboard_widget_c3785de68344a6100c1eb3a6feaad38f</sys_update_name><sys_updated_by>admin</sys_updated_by><sys_updated_on>2025-03-15 14:06:27</sys_updated_on><visualization/><w>16</w><widget_props/><x>32</x><y>0</y></par_dashboard_widget></record_update>]]></payload>
+        <payload_hash>1401096421</payload_hash>
+        <record_name/>
+        <reverted_from/>
+        <source>5dc244e0831cee100c1eb3a6feaad3a0</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2025-03-15 14:06:27</sys_created_on>
+        <sys_id>98409fe9839866500c1eb3a6feaad35a</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>1959a20ac710000001</sys_recorded_at>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2025-03-15 14:06:27</sys_updated_on>
+        <type>PAR Dashboard Widget</type>
+        <update_guid>10409fe922986650a94c1040dc19ce5a</update_guid>
+        <update_guid_history>10409fe922986650a94c1040dc19ce5a:1401096421,870f83a9e69866501327a95f14b80b90:-2096745153,94ee4f69c4986650b0c265150bc9d96b:936345660,afe0bd8869d86e105d1ccab79617ffaa:-87034977,b36dd5ae3044a6108f14e44b1dcbcec9:-279031533,cc5dd5aeed44a610197f1d4f79c1b2b0:-1417098350,673dd5aed544a610cbc8f3ab8d7b6385:360358357,478cdd2eee44a6105cd925dd72cd06df:1883390258,a85c5d2ec344a6100167cc5e74f1387f:1692590582,8b785de67e44a610d3069061cd0bc991:1615859030</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete display_value="">30fdc096836422100c1eb3a6feaad367</sys_audit_delete>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2025-03-29 18:08:39</sys_created_on>
+        <sys_db_object display_value="" name="par_dashboard_widget">par_dashboard_widget</sys_db_object>
+        <sys_id>08215687bf3148808bfc06766517a7f1</sys_id>
+        <sys_metadata>c3785de68344a6100c1eb3a6feaad38f</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name/>
+        <sys_package display_value="Conference Management" source="x_1297629_confer_0">463ae88383bb12100c1eb3a6feaad383</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_scope display_value="Conference Management">463ae88383bb12100c1eb3a6feaad383</sys_scope>
+        <sys_scope_delete display_value="">8523059317144f7e8d3537b20b985829</sys_scope_delete>
+        <sys_update_name>par_dashboard_widget_c3785de68344a6100c1eb3a6feaad38f</sys_update_name>
+        <sys_update_version display_value="par_dashboard_widget_c3785de68344a6100c1eb3a6feaad38f">98409fe9839866500c1eb3a6feaad35a</sys_update_version>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2025-03-29 18:08:39</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>
