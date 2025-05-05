@@ -4,13 +4,119 @@
         <client_script><![CDATA[api.controller = function($scope) {
   var c = this;
 
-  // The list of locations, managers, and subjects passed from the server-side script
+  // Populate dropdowns
   $scope.locations = c.data.locations;
   $scope.managers = c.data.managers;
   $scope.subjects = c.data.subjects;
-};]]></client_script>
+
+  // Submit form function
+  $scope.submitForm = function() {
+    // Step 1: Validate form before proceeding
+    if (!$scope.conferenceForm.$valid) {
+      alert("Please fill out all required fields before submitting.");
+      return; // Stop further execution
+    }
+
+    var payload = {
+      action: 'createNewConference',
+      conferenceDetails: {
+        conferenceName: $scope.conferenceName,
+        selectedLocation: $scope.selectedLocation,
+        conferenceStart: $scope.conferenceStart,
+        conferenceEnd: $scope.conferenceEnd,
+        selectedManager: $scope.selectedManager,
+        selectedSubjectOption: $scope.selectedSubjectOption
+      }
+    };
+
+    console.log("Submitting payload:", payload);
+
+    // Use .get(payload) to send form data
+    c.server.get(payload).then(function(response) {
+      console.log("Server responded:", response);
+
+      if (response.data && response.data.responseResult !== "FAILURE") {
+        alert("Conference created successfully!");
+
+        // Clear form fields
+        $scope.conferenceName = '';
+        $scope.selectedLocation = '';
+        $scope.conferenceStart = '';
+        $scope.conferenceEnd = '';
+        $scope.selectedManager = '';
+        $scope.selectedSubjectOption = '';
+
+        if ($scope.conferenceForm) {
+          $scope.conferenceForm.$setPristine();
+          $scope.conferenceForm.$setUntouched();
+        }
+
+      } else {
+        alert("Failed to create conference.");
+      }
+    });
+  };
+};
+]]></client_script>
         <controller_as>c</controller_as>
-        <css/>
+        <css>/* Make the form container a nice centered card */
+form[name="conferenceForm"] {
+  background: #ffffff;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  max-width: 600px;
+  margin: 30px auto;
+}
+
+/* Style labels and headings */
+form[name="conferenceForm"] h3 {
+  margin-top: 20px;
+  font-size: 1.25rem;
+  color: #333;
+}
+
+/* Style input fields and dropdowns */
+form[name="conferenceForm"] input[type="text"],
+form[name="conferenceForm"] input[type="date"],
+form[name="conferenceForm"] select {
+  margin-top: 8px;
+  margin-bottom: 20px;
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #cccccc;
+  border-radius: 6px;
+  font-size: 1rem;
+}
+
+/* Style the Submit button */
+form[name="conferenceForm"] button.btn-primary {
+  background-color: #007bff;
+  border: none;
+  font-size: 1.1rem;
+  padding: 12px 20px;
+  border-radius: 8px;
+  color: white;
+  width: 100%;
+  transition: background-color 0.3s ease;
+}
+
+/* Hover effect for Submit button */
+form[name="conferenceForm"] button.btn-primary:hover {
+  background-color: #0056b3;
+  cursor: pointer;
+}
+
+/* Add red borders if validation fails */
+.ng-invalid.ng-touched {
+  border-color: #dc3545;
+}
+
+/* Optional: Improve appearance of alert popups (for mobile) */
+.swal2-popup {
+  font-size: 1.2rem !important;
+}
+</css>
         <data_table>sp_instance</data_table>
         <demo_data/>
         <description/>
@@ -25,92 +131,190 @@
         <public>false</public>
         <roles/>
         <script><![CDATA[(function() {
-  var locationList = [];
-  var managerSet = new Set();  // Use Set to ensure unique managers
-  var subjectList = [];  // For storing the labels of the subject field
-  
-  // Query for Locations
-  var locationGR = new GlideRecord('cmn_location');
-  locationGR.query();
-  while (locationGR.next()) {
-    locationList.push(locationGR.name.toString());
+  gs.info("Widget server script started.");
+
+  // Handle form submission if input is present
+  if (typeof input !== 'undefined' && input !== null) {
+    gs.info("Input detected: " + JSON.stringify(input));
+
+    if (input.action === 'createNewConference') {
+      gs.info("Action detected: createNewConference");
+      data.result = createNewConference(input.conferenceDetails);
+    } else {
+      gs.error("No action property found in input.");
+    }
   }
-  // Sort locationList alphabetically
-  locationList.sort();
 
-  // Query for Managers (with specified roles)
-  var roleId = ['ce3ae88383bb12100c1eb3a6feaad38a', 'ce3ae88383bb12100c1eb3a6feaad390'];
-  var roleGR = new GlideRecord('sys_user_has_role');
-  roleGR.addQuery('role', 'IN', roleId.join(','));
-  roleGR.query();
-  while (roleGR.next()) {
-    var managerName = roleGR.user.name;
-    managerSet.add(managerName.toString());
+  // Always build dropdowns, even after submission
+  populateDropdowns();
+
+  // =========================
+  // Function: Populate Dropdown Data
+  function populateDropdowns() {
+    var locationList = [];
+    var managerSet = new Set();
+    var subjectList = [];
+
+    // Query Locations
+    var locationGR = new GlideRecord('cmn_location');
+    locationGR.query();
+    while (locationGR.next()) {
+      locationList.push(locationGR.name.toString());
+    }
+    locationList.sort();
+
+    // Query Managers
+    var roleId = ['ce3ae88383bb12100c1eb3a6feaad38a', 'ce3ae88383bb12100c1eb3a6feaad390'];
+    var roleGR = new GlideRecord('sys_user_has_role');
+    roleGR.addQuery('role', 'IN', roleId.join(','));
+    roleGR.query();
+    while (roleGR.next()) {
+      if (roleGR.user) {
+        managerSet.add(roleGR.user.name.toString());
+      }
+    }
+    var managerList = Array.from(managerSet);
+    managerList.sort();
+
+    // Query Subjects
+    var choiceGR = new GlideRecord('sys_choice');
+    choiceGR.addQuery('name', 'x_1297629_confer_0_conferences');
+    choiceGR.addQuery('element', 'subject');
+    choiceGR.query();
+    while (choiceGR.next()) {
+      subjectList.push(choiceGR.label.toString());
+    }
+    subjectList.sort();
+
+    // Set data object for client
+    data.locations = locationList;
+    data.managers = managerList;
+    data.subjects = subjectList;
   }
-  // Convert the Set to an array and sort alphabetically
-  var managerList = Array.from(managerSet);
-  managerList.sort();
 
-  // Query sys_choice for the 'subject' field in the custom table 'x_1297629_confer_0_conferences'
-  var choiceGR = new GlideRecord('sys_choice');
-  choiceGR.addQuery('name', 'x_1297629_confer_0_conferences');  // Custom table
-  choiceGR.addQuery('element', 'subject');  // Field name in the custom table (must match exactly)
-  choiceGR.query();
+  // =========================
+  // Function: Create New Conference Record
+  function createNewConference(details) {
+    var locationSysId = '';
+    var managerSysId = '';
 
-  // Loop through the results to get the labels for the subject choices
-  while (choiceGR.next()) {
-    subjectList.push(choiceGR.label.toString());  // Add the label (choice) to the list
+    // Lookup Location sys_id
+    if (details.selectedLocation) {
+      var locGR = new GlideRecord('cmn_location');
+      locGR.addQuery('name', details.selectedLocation);
+      locGR.query();
+      if (locGR.next()) {
+        locationSysId = locGR.getUniqueValue();
+      } else {
+        gs.error("Location lookup failed for: " + details.selectedLocation);
+      }
+    } else {
+      gs.error("No location provided.");
+    }
+
+    // Lookup Manager sys_id
+    if (details.selectedManager) {
+      var userGR = new GlideRecord('sys_user');
+      userGR.addQuery('name', details.selectedManager);
+      userGR.query();
+      if (userGR.next()) {
+        managerSysId = userGR.getUniqueValue();
+      } else {
+        gs.error("Manager lookup failed for: " + details.selectedManager);
+      }
+    } else {
+      gs.error("No manager provided.");
+    }
+
+    // Initialize new record
+    var confGR = new GlideRecord('x_1297629_confer_0_conferences');
+    confGR.initialize();
+
+    confGR.name = details.conferenceName || '';
+    confGR.location = locationSysId || '';
+    confGR.start_date = formatDate(details.conferenceStart) || '';
+    confGR.end_date = formatDate(details.conferenceEnd) || '';
+    confGR.manager = managerSysId || '';
+    confGR.subject = details.selectedSubjectOption || '';
+
+    // Determine active status based on End Date
+    if (details.conferenceEnd) {
+      var today = new GlideDate();
+      var endDateOnly = details.conferenceEnd.split("T")[0]; // remove time portion if exists
+      var endDate = new GlideDate();
+      endDate.setDisplayValue(endDateOnly);
+
+      if (endDate.before(today)) {
+        confGR.active = false;
+      } else {
+        confGR.active = true;
+      }
+    } else {
+      confGR.active = true; // No end date, default to active
+    }
+
+    // Insert and return result
+    var newSysId = confGR.insert();
+    if (newSysId) {
+      gs.info("Conference created successfully. Sys ID: " + newSysId);
+      return { responseResult: 'SUCCESS', sysId: newSysId };
+    } else {
+      gs.error("Insert failed. Last Error: " + confGR.getLastErrorMessage());
+      return { responseResult: 'FAILURE' };
+    }
   }
-  // Sort subjects alphabetically
-  subjectList.sort();
 
-  // Pass the collected data to the client-side script
-  data.locations = locationList;
-  data.managers = managerList;  // Send sorted, unique manager names to the client-side
-  data.subjects = subjectList;  // Send sorted subjects to the client-side
-})();]]></script>
+  // =========================
+  // Helper: Format Date
+  function formatDate(inputDate) {
+    if (!inputDate) return '';
+    var gd = new GlideDateTime(inputDate);
+    return gd.getLocalDate().toString();
+  }
+})();
+]]></script>
         <servicenow>false</servicenow>
         <sys_class_name>sp_widget</sys_class_name>
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2025-03-31 21:18:05</sys_created_on>
         <sys_id>477c0b7e83e8e2100c1eb3a6feaad3ec</sys_id>
-        <sys_mod_count>67</sys_mod_count>
+        <sys_mod_count>97</sys_mod_count>
         <sys_name>Create Conference</sys_name>
         <sys_package display_value="Conference Management" source="x_1297629_confer_0">463ae88383bb12100c1eb3a6feaad383</sys_package>
         <sys_policy/>
         <sys_scope display_value="Conference Management">463ae88383bb12100c1eb3a6feaad383</sys_scope>
         <sys_update_name>sp_widget_477c0b7e83e8e2100c1eb3a6feaad3ec</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2025-04-05 18:45:12</sys_updated_on>
+        <sys_updated_on>2025-04-29 01:06:18</sys_updated_on>
         <template><![CDATA[<div>
-  <h3>What is the Name of the Conference?</h3>
-  <input type="text" ng-model="conferenceName">
+  <form name="conferenceForm" novalidate>
+    <h3>What is the Name of the Conference?</h3>
+    <input type="text" ng-model="conferenceName" class="form-control" required>
 
-  <h3>Where will it take Place?</h3>
-  <select ng-model="selectedLocation" ng-options="location for location in locations">
-    <option value="">-- Select a Location --</option>
-  </select>
+    <h3>Where will it take Place?</h3>
+    <select ng-model="selectedLocation" ng-options="location for location in locations" class="form-control" required>
+      <option value="">-- Select a Location --</option>
+    </select>
 
-  <h3>When will it Begin?</h3>
-  <input type="date" ng-model="conferenceStart">
+    <h3>When will it Begin?</h3>
+    <input type="date" ng-model="conferenceStart" class="form-control" required>
 
-  <h3>When will it End?</h3>
-  <input type="date" ng-model="conferenceEnd">
+    <h3>When will it End?</h3>
+    <input type="date" ng-model="conferenceEnd" class="form-control" required>
 
-  <h3>Who will Manage it?</h3>
-  <select ng-model="selectedManager" ng-options="manager for manager in managers">
-    <option value="">-- Select a Manager --</option>
-  </select>
+    <h3>Who will Manage it?</h3>
+    <select ng-model="selectedManager" ng-options="manager for manager in managers" class="form-control" required>
+      <option value="">-- Select a Manager --</option>
+    </select>
 
-  <h3>What's the Subject of the Conference?</h3>
-  <select ng-model="selectedSubjectOption" ng-options="subject for subject in subjects">
-    <option value="">-- Select a Subject --</option>
-  </select>
-  <h5>
+    <h3>What's the Subject of the Conference?</h3>
+    <select ng-model="selectedSubjectOption" ng-options="subject for subject in subjects" class="form-control" required>
+      <option value="">-- Select a Subject --</option>
+    </select>
+
     <br>
-  </h5>
-  <!-- Submit Button -->
-  <button ng-click="submitForm()">Submit</button>
+    <button class="btn btn-primary" ng-click="submitForm()">Submit</button>
+  </form>
 </div>
 ]]></template>
     </sp_widget>
