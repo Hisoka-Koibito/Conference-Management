@@ -11,13 +11,22 @@
 
   // Submit form function
   $scope.submitForm = function() {
-    // Step 1: Validate form before proceeding
-    if (!$scope.conferenceForm.$valid) {
-      alert("Please fill out all required fields before submitting.");
-      return; // Stop further execution
-    }
+  // Validate form before proceeding
+  if (!$scope.conferenceForm.$valid) {
+    alert("Please fill out all required fields before submitting.");
+    return; // Stop further execution
+  }
 
-    var payload = {
+  // Ensure that the conference end date is not before the current date
+  var today = new Date();
+  var endDate = new Date($scope.conferenceEnd);
+
+  if (endDate < today) {
+    alert("The end date cannot be in the past. Please select a valid end date.");
+    return;  // Stop form submission if the end date is invalid
+  }
+
+    var formData = {
       action: 'createNewConference',
       conferenceDetails: {
         conferenceName: $scope.conferenceName,
@@ -25,14 +34,15 @@
         conferenceStart: $scope.conferenceStart,
         conferenceEnd: $scope.conferenceEnd,
         selectedManager: $scope.selectedManager,
-        selectedSubjectOption: $scope.selectedSubjectOption
+        selectedSubjectOption: $scope.selectedSubjectOption,
+				conferenceDescription: $scope.conferenceDescription,
       }
     };
 
-    console.log("Submitting payload:", payload);
+    console.log("Submitting Form Data:", formData);
 
-    // Use .get(payload) to send form data
-    c.server.get(payload).then(function(response) {
+    // Use .get(formData) to send form data
+    c.server.get(formData).then(function(response) {
       console.log("Server responded:", response);
 
       if (response.data && response.data.responseResult !== "FAILURE") {
@@ -45,13 +55,8 @@
         $scope.conferenceEnd = '';
         $scope.selectedManager = '';
         $scope.selectedSubjectOption = '';
-
-        if ($scope.conferenceForm) {
-          $scope.conferenceForm.$setPristine();
-          $scope.conferenceForm.$setUntouched();
-        }
-
-      } else {
+				$scope.conferenceDescription = '';
+       } else {
         alert("Failed to create conference.");
       }
     });
@@ -133,23 +138,7 @@ form[name="conferenceForm"] button.btn-primary:hover {
         <script><![CDATA[(function() {
   gs.info("Widget server script started.");
 
-  // Handle form submission if input is present
-  if (typeof input !== 'undefined' && input !== null) {
-    gs.info("Input detected: " + JSON.stringify(input));
-
-    if (input.action === 'createNewConference') {
-      gs.info("Action detected: createNewConference");
-      data.result = createNewConference(input.conferenceDetails);
-    } else {
-      gs.error("No action property found in input.");
-    }
-  }
-
-  // Always build dropdowns, even after submission
-  populateDropdowns();
-
-  // =========================
-  // Function: Populate Dropdown Data
+  // Define populateDropdowns() populate the data object
   function populateDropdowns() {
     var locationList = [];
     var managerSet = new Set();
@@ -186,19 +175,32 @@ form[name="conferenceForm"] button.btn-primary:hover {
     }
     subjectList.sort();
 
-    // Set data object for client
+    // Populate the data object
     data.locations = locationList;
     data.managers = managerList;
     data.subjects = subjectList;
   }
 
-  // =========================
-  // Function: Create New Conference Record
+   populateDropdowns();
+
+  // Input validation
+  if (typeof input !== 'undefined' && input !== null) {
+    gs.info("Input detected: " + JSON.stringify(input));
+
+    if (input.action === 'createNewConference') {
+      gs.info("Action detected: createNewConference");
+      data.result = createNewConference(input.conferenceDetails);
+    } else {
+      gs.error("No action property found in input.");
+    }
+  }
+
+  // Define createNewConference function
   function createNewConference(details) {
     var locationSysId = '';
     var managerSysId = '';
 
-    // Lookup Location sys_id
+    // Look up location sys_id
     if (details.selectedLocation) {
       var locGR = new GlideRecord('cmn_location');
       locGR.addQuery('name', details.selectedLocation);
@@ -226,23 +228,23 @@ form[name="conferenceForm"] button.btn-primary:hover {
       gs.error("No manager provided.");
     }
 
-    // Initialize new record
+    // Initialize new conference record
     var confGR = new GlideRecord('x_1297629_confer_0_conferences');
     confGR.initialize();
 
     confGR.name = details.conferenceName || '';
     confGR.location = locationSysId || '';
-    confGR.start_date = formatDate(details.conferenceStart) || '';
-    confGR.end_date = formatDate(details.conferenceEnd) || '';
+    confGR.start_date = details.conferenceStart || '';
+    confGR.end_date = details.conferenceEnd || '';
     confGR.manager = managerSysId || '';
     confGR.subject = details.selectedSubjectOption || '';
+		confGR.description = details.conferenceDescription || '';
 
-    // Determine active status based on End Date
+    // Determine Active Status based on End Date
     if (details.conferenceEnd) {
       var today = new GlideDate();
-      var endDateOnly = details.conferenceEnd.split("T")[0]; // remove time portion if exists
       var endDate = new GlideDate();
-      endDate.setDisplayValue(endDateOnly);
+      endDate.setDisplayValue(details.conferenceEnd); // Directly use the conference end date
 
       if (endDate.before(today)) {
         confGR.active = false;
@@ -263,14 +265,6 @@ form[name="conferenceForm"] button.btn-primary:hover {
       return { responseResult: 'FAILURE' };
     }
   }
-
-  // =========================
-  // Helper: Format Date
-  function formatDate(inputDate) {
-    if (!inputDate) return '';
-    var gd = new GlideDateTime(inputDate);
-    return gd.getLocalDate().toString();
-  }
 })();
 ]]></script>
         <servicenow>false</servicenow>
@@ -278,14 +272,14 @@ form[name="conferenceForm"] button.btn-primary:hover {
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2025-03-31 21:18:05</sys_created_on>
         <sys_id>477c0b7e83e8e2100c1eb3a6feaad3ec</sys_id>
-        <sys_mod_count>97</sys_mod_count>
+        <sys_mod_count>118</sys_mod_count>
         <sys_name>Create Conference</sys_name>
         <sys_package display_value="Conference Management" source="x_1297629_confer_0">463ae88383bb12100c1eb3a6feaad383</sys_package>
         <sys_policy/>
         <sys_scope display_value="Conference Management">463ae88383bb12100c1eb3a6feaad383</sys_scope>
         <sys_update_name>sp_widget_477c0b7e83e8e2100c1eb3a6feaad3ec</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2025-04-29 01:06:18</sys_updated_on>
+        <sys_updated_on>2025-05-12 22:16:01</sys_updated_on>
         <template><![CDATA[<div>
   <form name="conferenceForm" novalidate>
     <h3>What is the Name of the Conference?</h3>
@@ -312,6 +306,9 @@ form[name="conferenceForm"] button.btn-primary:hover {
       <option value="">-- Select a Subject --</option>
     </select>
 
+    <h3>Provide a Description of the Conference</h3>
+    <input type="text" ng-model="conferenceDescription" class="form-control" required>
+    
     <br>
     <button class="btn btn-primary" ng-click="submitForm()">Submit</button>
   </form>
