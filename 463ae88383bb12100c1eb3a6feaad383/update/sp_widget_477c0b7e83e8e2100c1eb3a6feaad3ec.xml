@@ -8,6 +8,7 @@
   $scope.locations = c.data.locations;
   $scope.managers = c.data.managers;
   $scope.subjects = c.data.subjects;
+	$scope.speakers = c.data.speakers;
 
   // Submit form function
   $scope.submitForm = function() {
@@ -36,6 +37,7 @@
         selectedManager: $scope.selectedManager,
         selectedSubjectOption: $scope.selectedSubjectOption,
 				conferenceDescription: $scope.conferenceDescription,
+				selectedSpeaker: $scope.selectedSpeaker
       }
     };
 
@@ -56,6 +58,7 @@
         $scope.selectedManager = '';
         $scope.selectedSubjectOption = '';
 				$scope.conferenceDescription = '';
+				$scope.selectedSpeaker = '';
        } else {
         alert("Failed to create conference.");
       }
@@ -138,13 +141,14 @@ form[name="conferenceForm"] button.btn-primary:hover {
         <script><![CDATA[(function() {
   gs.info("Widget server script started.");
 
-  // Define populateDropdowns() populate the data object
+  // Populate dropdowns
   function populateDropdowns() {
     var locationList = [];
     var managerSet = new Set();
     var subjectList = [];
+    var speakerList = [];
 
-    // Query Locations
+    // Locations
     var locationGR = new GlideRecord('cmn_location');
     locationGR.query();
     while (locationGR.next()) {
@@ -152,7 +156,7 @@ form[name="conferenceForm"] button.btn-primary:hover {
     }
     locationList.sort();
 
-    // Query Managers
+    // Managers with specific roles
     var roleId = ['ce3ae88383bb12100c1eb3a6feaad38a', 'ce3ae88383bb12100c1eb3a6feaad390'];
     var roleGR = new GlideRecord('sys_user_has_role');
     roleGR.addQuery('role', 'IN', roleId.join(','));
@@ -165,7 +169,7 @@ form[name="conferenceForm"] button.btn-primary:hover {
     var managerList = Array.from(managerSet);
     managerList.sort();
 
-    // Query Subjects
+    // Subjects from choice list
     var choiceGR = new GlideRecord('sys_choice');
     choiceGR.addQuery('name', 'x_1297629_confer_0_conferences');
     choiceGR.addQuery('element', 'subject');
@@ -175,15 +179,26 @@ form[name="conferenceForm"] button.btn-primary:hover {
     }
     subjectList.sort();
 
-    // Populate the data object
+    // Speakers from custom speaker table
+    var speakerGR = new GlideRecord('x_1297629_confer_0_speakers');
+    speakerGR.query();
+    while (speakerGR.next()) {
+      speakerList.push({
+        label: speakerGR.user.name.toString(),
+        value: speakerGR.getUniqueValue()
+      });
+    }
+
+    // Send to client
     data.locations = locationList;
     data.managers = managerList;
     data.subjects = subjectList;
+    data.speakers = speakerList;
   }
 
-   populateDropdowns();
+  populateDropdowns();
 
-  // Input validation
+  // Handle submission
   if (typeof input !== 'undefined' && input !== null) {
     gs.info("Input detected: " + JSON.stringify(input));
 
@@ -195,12 +210,12 @@ form[name="conferenceForm"] button.btn-primary:hover {
     }
   }
 
-  // Define createNewConference function
   function createNewConference(details) {
     var locationSysId = '';
     var managerSysId = '';
+    var speakerSysId = '';
 
-    // Look up location sys_id
+    // Location sys_id
     if (details.selectedLocation) {
       var locGR = new GlideRecord('cmn_location');
       locGR.addQuery('name', details.selectedLocation);
@@ -210,11 +225,9 @@ form[name="conferenceForm"] button.btn-primary:hover {
       } else {
         gs.error("Location lookup failed for: " + details.selectedLocation);
       }
-    } else {
-      gs.error("No location provided.");
     }
 
-    // Lookup Manager sys_id
+    // Manager sys_id
     if (details.selectedManager) {
       var userGR = new GlideRecord('sys_user');
       userGR.addQuery('name', details.selectedManager);
@@ -224,41 +237,56 @@ form[name="conferenceForm"] button.btn-primary:hover {
       } else {
         gs.error("Manager lookup failed for: " + details.selectedManager);
       }
-    } else {
-      gs.error("No manager provided.");
     }
 
-    // Initialize new conference record
+    // Speaker sys_id (from speaker table now)
+    if (details.selectedSpeaker) {
+      var speakerGR = new GlideRecord('x_1297629_confer_0_speakers');
+      if (speakerGR.get(details.selectedSpeaker)) {
+        speakerSysId = speakerGR.getUniqueValue();
+      } else {
+        gs.error("Speaker record not found for sys_id: " + details.selectedSpeaker);
+      }
+    }
+
+    // Create conference
     var confGR = new GlideRecord('x_1297629_confer_0_conferences');
     confGR.initialize();
-
     confGR.name = details.conferenceName || '';
     confGR.location = locationSysId || '';
     confGR.start_date = details.conferenceStart || '';
     confGR.end_date = details.conferenceEnd || '';
     confGR.manager = managerSysId || '';
     confGR.subject = details.selectedSubjectOption || '';
-		confGR.description = details.conferenceDescription || '';
+    confGR.description = details.conferenceDescription || '';
 
-    // Determine Active Status based on End Date
+    // Active status logic
     if (details.conferenceEnd) {
       var today = new GlideDate();
       var endDate = new GlideDate();
-      endDate.setDisplayValue(details.conferenceEnd); // Directly use the conference end date
-
-      if (endDate.before(today)) {
-        confGR.active = false;
-      } else {
-        confGR.active = true;
-      }
+      endDate.setDisplayValue(details.conferenceEnd);
+      confGR.active = !endDate.before(today);
     } else {
-      confGR.active = true; // No end date, default to active
+      confGR.active = true;
     }
 
-    // Insert and return result
+    // Insert and M2M record
     var newSysId = confGR.insert();
     if (newSysId) {
       gs.info("Conference created successfully. Sys ID: " + newSysId);
+
+      if (speakerSysId) {
+        var m2mGR = new GlideRecord('x_1297629_confer_0_m2m_x_1297629_co_x_1297629_co');
+        m2mGR.initialize();
+        m2mGR.x_1297629_confer_0_conferences = newSysId;
+        m2mGR.x_1297629_confer_0_speakers = speakerSysId;
+
+        var m2mInsert = m2mGR.insert();
+        if (!m2mInsert) {
+          gs.error("Failed to link speaker via M2M. Error: " + m2mGR.getLastErrorMessage());
+        }
+      }
+
       return { responseResult: 'SUCCESS', sysId: newSysId };
     } else {
       gs.error("Insert failed. Last Error: " + confGR.getLastErrorMessage());
@@ -272,14 +300,14 @@ form[name="conferenceForm"] button.btn-primary:hover {
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2025-03-31 21:18:05</sys_created_on>
         <sys_id>477c0b7e83e8e2100c1eb3a6feaad3ec</sys_id>
-        <sys_mod_count>118</sys_mod_count>
+        <sys_mod_count>136</sys_mod_count>
         <sys_name>Create Conference</sys_name>
         <sys_package display_value="Conference Management" source="x_1297629_confer_0">463ae88383bb12100c1eb3a6feaad383</sys_package>
         <sys_policy/>
         <sys_scope display_value="Conference Management">463ae88383bb12100c1eb3a6feaad383</sys_scope>
         <sys_update_name>sp_widget_477c0b7e83e8e2100c1eb3a6feaad3ec</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2025-05-12 22:16:01</sys_updated_on>
+        <sys_updated_on>2025-05-21 04:41:05</sys_updated_on>
         <template><![CDATA[<div>
   <form name="conferenceForm" novalidate>
     <h3>What is the Name of the Conference?</h3>
@@ -308,6 +336,11 @@ form[name="conferenceForm"] button.btn-primary:hover {
 
     <h3>Provide a Description of the Conference</h3>
     <input type="text" ng-model="conferenceDescription" class="form-control" required>
+    
+    <h3>Who will be the primary speaker at the conference?</h3>
+    <select ng-model="selectedSpeaker" ng-options="speaker.value as speaker.label for speaker in speakers" class="form-control" required>
+      <option value="">-- Select a Speaker --</option>
+    </select>
     
     <br>
     <button class="btn btn-primary" ng-click="submitForm()">Submit</button>
