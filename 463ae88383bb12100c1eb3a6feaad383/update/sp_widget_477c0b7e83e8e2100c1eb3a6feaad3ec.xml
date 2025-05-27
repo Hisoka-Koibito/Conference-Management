@@ -183,10 +183,7 @@ form[name="conferenceForm"] button.btn-primary:hover {
     var speakerGR = new GlideRecord('x_1297629_confer_0_speakers');
     speakerGR.query();
     while (speakerGR.next()) {
-      speakerList.push({
-        label: speakerGR.user.name.toString(),
-        value: speakerGR.getUniqueValue()
-      });
+      speakerList.push(speakerGR.user.name.toString());
     }
 
     // Send to client
@@ -260,7 +257,7 @@ form[name="conferenceForm"] button.btn-primary:hover {
     confGR.subject = details.selectedSubjectOption || '';
     confGR.description = details.conferenceDescription || '';
 
-    // Active status logic
+		// Active status logic
     if (details.conferenceEnd) {
       var today = new GlideDate();
       var endDate = new GlideDate();
@@ -269,7 +266,7 @@ form[name="conferenceForm"] button.btn-primary:hover {
     } else {
       confGR.active = true;
     }
-
+    
     // Insert and M2M record
     var newSysId = confGR.insert();
     if (newSysId) {
@@ -278,15 +275,15 @@ form[name="conferenceForm"] button.btn-primary:hover {
       if (speakerSysId) {
         var m2mGR = new GlideRecord('x_1297629_confer_0_m2m_x_1297629_co_x_1297629_co');
         m2mGR.initialize();
-        m2mGR.x_1297629_confer_0_conferences = newSysId;
         m2mGR.x_1297629_confer_0_speakers = speakerSysId;
-
+				m2mGR.x_1297629_confer_0_conferences = newSysId;
         var m2mInsert = m2mGR.insert();
         if (!m2mInsert) {
           gs.error("Failed to link speaker via M2M. Error: " + m2mGR.getLastErrorMessage());
         }
       }
 
+			
       return { responseResult: 'SUCCESS', sysId: newSysId };
     } else {
       gs.error("Insert failed. Last Error: " + confGR.getLastErrorMessage());
@@ -300,14 +297,14 @@ form[name="conferenceForm"] button.btn-primary:hover {
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2025-03-31 21:18:05</sys_created_on>
         <sys_id>477c0b7e83e8e2100c1eb3a6feaad3ec</sys_id>
-        <sys_mod_count>136</sys_mod_count>
+        <sys_mod_count>142</sys_mod_count>
         <sys_name>Create Conference</sys_name>
         <sys_package display_value="Conference Management" source="x_1297629_confer_0">463ae88383bb12100c1eb3a6feaad383</sys_package>
         <sys_policy/>
         <sys_scope display_value="Conference Management">463ae88383bb12100c1eb3a6feaad383</sys_scope>
         <sys_update_name>sp_widget_477c0b7e83e8e2100c1eb3a6feaad3ec</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2025-05-21 04:41:05</sys_updated_on>
+        <sys_updated_on>2025-05-27 17:39:59</sys_updated_on>
         <template><![CDATA[<div>
   <form name="conferenceForm" novalidate>
     <h3>What is the Name of the Conference?</h3>
@@ -337,8 +334,8 @@ form[name="conferenceForm"] button.btn-primary:hover {
     <h3>Provide a Description of the Conference</h3>
     <input type="text" ng-model="conferenceDescription" class="form-control" required>
     
-    <h3>Who will be the primary speaker at the conference?</h3>
-    <select ng-model="selectedSpeaker" ng-options="speaker.value as speaker.label for speaker in speakers" class="form-control" required>
+    <h3>Who will be the primary speaker at the conference (If Speaker Exists)?</h3>
+    <select ng-model="selectedSpeaker" ng-options="speaker for speaker in speakers" class="form-control">
       <option value="">-- Select a Speaker --</option>
     </select>
     

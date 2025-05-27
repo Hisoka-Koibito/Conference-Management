@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <category>custom</category>
+        <client_script><![CDATA[api.controller = function($scope) {
+  var c = this;
+
+  // Populate dropdowns
+  $scope.speakers = c.data.speakers;
+	$scope.specialties = c.data.specialties;
+	$scope.conferences = c.data.conferences;
+
+  // Submit form function
+  $scope.submitForm = function() {
+  // Validate form before proceeding
+  if (!$scope.speakerForm.$valid) {
+    alert("Please fill out all required fields before submitting.");
+    return; // Stop further execution
+  }
+
+    var formData = {
+      action: 'createNewSpeaker',
+      speakerDetails: {
+        selectedSpeaker: $scope.selectedSpeaker,
+        speakerTitle: $scope.speakerTitle,
+        speakerBio: $scope.speakerBio,
+        speakerSpecialty: $scope.speakerSpecialty,
+				selectedConference: $scope.selectedConference,
+        }
+    };
+
+    console.log("Submitting Form Data:", formData);
+
+    // Use .get(formData) to send form data
+    c.server.get(formData).then(function(response) {
+      console.log("Server responded:", response);
+
+      if (response.data && response.data.responseResult !== "FAILURE") {
+        alert("Speaker created successfully!");
+
+        // Clear form fields
+        $scope.selectedSpeaker = '';
+        $scope.speakerTitle = '';
+        $scope.speakerBio = '';
+        $scope.speakerSpecialty = '';
+        $scope.selectedConference = '';
+        } else {
+        alert("Failed to create speaker.");
+      }
+    });
+  };
+};
+]]></client_script>
+        <controller_as>c</controller_as>
+        <css>/* Make the form container a nice centered card */
+form[name="speakerForm"] {
+  background: #ffffff;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  max-width: 600px;
+  margin: 30px auto;
+}
+
+/* Style labels and headings */
+form[name="speakerForm"] h3 {
+  margin-top: 20px;
+  font-size: 1.25rem;
+  color: #333;
+}
+
+/* Style input fields and dropdowns */
+form[name="speakerForm"] input[type="text"],
+form[name="speakerForm"] input[type="date"],
+form[name="speakerForm"] select {
+  margin-top: 8px;
+  margin-bottom: 20px;
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #cccccc;
+  border-radius: 6px;
+  font-size: 1rem;
+}
+
+/* Style the Submit button */
+form[name="speakerForm"] button.btn-primary {
+  background-color: #007bff;
+  border: none;
+  font-size: 1.1rem;
+  padding: 12px 20px;
+  border-radius: 8px;
+  color: white;
+  width: 100%;
+  transition: background-color 0.3s ease;
+}
+
+/* Hover effect for Submit button */
+form[name="speakerForm"] button.btn-primary:hover {
+  background-color: #0056b3;
+  cursor: pointer;
+}
+
+/* Add red borders if validation fails */
+.ng-invalid.ng-touched {
+  border-color: #dc3545;
+}
+
+/* Optional: Improve appearance of alert popups (for mobile) */
+.swal2-popup {
+  font-size: 1.2rem !important;
+}
+</css>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>true</has_preview>
+        <id>create_speaker</id>
+        <internal>false</internal>
+        <link><![CDATA[function link(scope, element, attrs, controller) {  }]]></link>
+        <name>Create Speaker</name>
+        <option_schema/>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function() {
+  gs.info("Widget server script started.");
+
+  // Populate dropdowns
+  function populateDropdowns() {
+    var speakerList = [];
+    var specialtyList = [];
+    var conferenceList = [];
+
+    // Get list of users for speaker selection
+    var speakerGR = new GlideRecord('sys_user');
+    speakerGR.query();
+    while (speakerGR.next()) {
+      speakerList.push(speakerGR.name.toString());
+    }
+    speakerList.sort();
+
+    // Get list of specialty options
+    var choiceGR = new GlideRecord('sys_choice');
+    choiceGR.addQuery('name', 'x_1297629_confer_0_speakers');
+    choiceGR.addQuery('element', 'specialty');
+    choiceGR.query();
+    while (choiceGR.next()) {
+      specialtyList.push(choiceGR.label.toString());
+    }
+    specialtyList.sort();
+
+    // Get list of conferences
+    var confGR = new GlideRecord('x_1297629_confer_0_conferences');
+    confGR.query();
+    while (confGR.next()) {
+      conferenceList.push(confGR.name.toString());
+    }
+
+    // Send to client
+    data.speakers = speakerList;
+    data.specialties = specialtyList;
+    data.conferences = conferenceList;
+  }
+
+  populateDropdowns();
+
+  // Handle submission
+  if (typeof input !== 'undefined' && input !== null) {
+    gs.info("Input detected: " + JSON.stringify(input));
+
+    if (input.action === 'createNewSpeaker') {
+      gs.info("Action detected: createNewSpeaker");
+      data.result = createNewSpeaker(input.speakerDetails);
+    } else {
+      gs.error("No action property found in input.");
+    }
+  }
+
+  function createNewSpeaker(details) {
+    var speakerSysId = '';
+    var conferenceSysId = '';
+
+    // Lookup speaker sys_id
+    if (details.selectedSpeaker) {
+      var userGR = new GlideRecord('sys_user');
+      userGR.addQuery('name', details.selectedSpeaker);
+      userGR.query();
+      if (userGR.next()) {
+        speakerSysId = userGR.getUniqueValue();
+      } else {
+        gs.error("Speaker lookup failed for: " + details.selectedSpeaker);
+      }
+    }
+
+    // Lookup conference sys_id
+    if (details.selectedConference) {
+      var confGR = new GlideRecord('x_1297629_confer_0_conferences');
+      confGR.addQuery('name', details.selectedConference);
+      confGR.query();
+      if (confGR.next()) {
+        conferenceSysId = confGR.getUniqueValue();
+      } else {
+        gs.error("Conference lookup failed for: " + details.selectedConference);
+      }
+    }
+
+    // Create speaker record
+    var speakerGR = new GlideRecord('x_1297629_confer_0_speakers');
+    speakerGR.initialize();
+    speakerGR.user = speakerSysId || '';
+    speakerGR.title = details.speakerTitle || '';
+    speakerGR.bio = details.speakerBio || '';
+    speakerGR.specialty = details.speakerSpecialty || '';
+
+    var newSysId = speakerGR.insert();
+    if (newSysId) {
+      gs.info("Speaker created successfully. Sys ID: " + newSysId);
+
+      // Link speaker to conference via M2M
+      if (conferenceSysId) {
+        var m2mGR = new GlideRecord('x_1297629_confer_0_m2m_x_1297629_co_x_1297629_co');
+        m2mGR.initialize();
+        m2mGR.x_1297629_confer_0_speakers = newSysId; // speaker record
+        m2mGR.x_1297629_confer_0_conferences = conferenceSysId; // conference record
+        var m2mInsert = m2mGR.insert();
+        if (!m2mInsert) {
+          gs.error("Failed to link speaker to conference via M2M. Error: " + m2mGR.getLastErrorMessage());
+        }
+      }
+
+      return { responseResult: 'SUCCESS', sysId: newSysId };
+    } else {
+      gs.error("Insert failed. Last Error: " + speakerGR.getLastErrorMessage());
+      return { responseResult: 'FAILURE' };
+    }
+  }
+})();]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2025-05-27 14:41:43</sys_created_on>
+        <sys_id>a864d30983f566109b4a9629feaad359</sys_id>
+        <sys_mod_count>31</sys_mod_count>
+        <sys_name>Create Speaker</sys_name>
+        <sys_package display_value="Conference Management" source="x_1297629_confer_0">463ae88383bb12100c1eb3a6feaad383</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Conference Management">463ae88383bb12100c1eb3a6feaad383</sys_scope>
+        <sys_update_name>sp_widget_a864d30983f566109b4a9629feaad359</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2025-05-27 17:35:24</sys_updated_on>
+        <template><![CDATA[<div>
+  <form name="speakerForm" novalidate>
+    <h3>Who will be a Speaker?</h3>
+    <select ng-model="selectedSpeaker" ng-options="speaker for speaker in speakers" class="form-control" required>
+      <option value="">-- Select a Speaker --</option>
+    </select>
+    
+    <h3>What is their Title?</h3>
+    <input type="text" ng-model="speakerTitle" class="form-control" required>
+
+    <h3>Provide a Brief Bio for the Speaker:</h3>
+    <input type="text" ng-model="speakerBio" class="form-control" required>
+    
+    <h3>What is their Specialty?</h3>
+    <select ng-model="speakerSpecialty" ng-options="specialty for specialty in specialties" class="form-control" required>
+      <option value="">-- Select a Specialty --</option>
+    </select>
+    
+    <h3>Which Conference will they Speak at? (If Applicable)</h3>
+    <select ng-model="selectedConference" ng-options="conference for conference in conferences" class="form-control">
+      <option value="">-- Select a Conference --</option>
+    </select>
+    
+    <br>
+    <button class="btn btn-primary" ng-click="submitForm()">Submit</button>
+  </form>
+</div>
+]]></template>
+    </sp_widget>
+</record_update>
