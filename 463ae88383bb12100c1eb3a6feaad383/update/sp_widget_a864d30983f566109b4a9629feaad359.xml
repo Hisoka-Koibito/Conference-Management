@@ -122,12 +122,24 @@ form[name="speakerForm"] button.btn-primary:hover {
     var conferenceList = [];
 
     // Get list of users for speaker selection
-    var speakerGR = new GlideRecord('sys_user');
-    speakerGR.query();
-    while (speakerGR.next()) {
-      speakerList.push(speakerGR.name.toString());
-    }
-    speakerList.sort();
+   // Get all sys_users who do not already exist in the speakers table
+		var speakerSet = new Set();
+		var existingGR = new GlideRecord('x_1297629_confer_0_speakers');
+		existingGR.query();
+		while (existingGR.next()) {
+			speakerSet.add(existingGR.user.toString());
+		}
+
+		var speakerGR = new GlideRecord('sys_user');
+		speakerGR.query();
+		while (speakerGR.next()) {
+			var userId = speakerGR.getUniqueValue();
+			if (!speakerSet.has(userId)) {
+				speakerList.push(speakerGR.name.toString());
+			}
+		}
+		speakerList.sort();
+
 
     // Get list of specialty options
     var choiceGR = new GlideRecord('sys_choice');
@@ -229,14 +241,14 @@ form[name="speakerForm"] button.btn-primary:hover {
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2025-05-27 14:41:43</sys_created_on>
         <sys_id>a864d30983f566109b4a9629feaad359</sys_id>
-        <sys_mod_count>36</sys_mod_count>
+        <sys_mod_count>37</sys_mod_count>
         <sys_name>Create Speaker</sys_name>
         <sys_package display_value="Conference Management" source="x_1297629_confer_0">463ae88383bb12100c1eb3a6feaad383</sys_package>
         <sys_policy/>
         <sys_scope display_value="Conference Management">463ae88383bb12100c1eb3a6feaad383</sys_scope>
         <sys_update_name>sp_widget_a864d30983f566109b4a9629feaad359</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2025-06-18 20:25:00</sys_updated_on>
+        <sys_updated_on>2025-06-19 02:10:15</sys_updated_on>
         <template><![CDATA[<div>
   <form name="speakerForm" novalidate>
     <h3>Who will be a Speaker?</h3>
