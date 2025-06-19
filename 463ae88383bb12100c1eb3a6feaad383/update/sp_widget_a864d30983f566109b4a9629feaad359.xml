@@ -6,16 +6,14 @@
 
   // Populate dropdowns
   $scope.speakers = c.data.speakers;
-	$scope.specialties = c.data.specialties;
-	$scope.conferences = c.data.conferences;
+  $scope.specialties = c.data.specialties;
+  $scope.conferences = c.data.conferences;
 
-  // Submit form function
   $scope.submitForm = function() {
-  // Validate form before proceeding
-  if (!$scope.speakerForm.$valid) {
-    alert("Please fill out all required fields before submitting.");
-    return; // Stop further execution
-  }
+    if (!$scope.speakerForm.$valid) {
+      alert("Please fill out all required fields before submitting.");
+      return;
+    }
 
     var formData = {
       action: 'createNewSpeaker',
@@ -24,27 +22,19 @@
         speakerTitle: $scope.speakerTitle,
         speakerBio: $scope.speakerBio,
         speakerSpecialty: $scope.speakerSpecialty,
-				selectedConference: $scope.selectedConference,
-        }
+        selectedConference: $scope.selectedConference,
+      }
     };
 
-    console.log("Submitting Form Data:", formData);
-
-    // Use .get(formData) to send form data
     c.server.get(formData).then(function(response) {
-      console.log("Server responded:", response);
-
-      if (response.data && response.data.responseResult !== "FAILURE") {
+      var result = response.data.result;
+      if (result && result.responseResult === "SUCCESS") {
         alert("Speaker created successfully!");
-
-        // Clear form fields
         $scope.selectedSpeaker = '';
         $scope.speakerTitle = '';
         $scope.speakerBio = '';
         $scope.speakerSpecialty = '';
         $scope.selectedConference = '';
-        } else {
-        alert("Failed to create speaker.");
       }
     });
   };
@@ -122,7 +112,7 @@ form[name="speakerForm"] button.btn-primary:hover {
         <option_schema/>
         <public>false</public>
         <roles/>
-        <script><![CDATA[(function() {
+        <script><![CDATA[(function () {
   gs.info("Widget server script started.");
 
   // Populate dropdowns
@@ -164,7 +154,7 @@ form[name="speakerForm"] button.btn-primary:hover {
 
   populateDropdowns();
 
-  // Handle submission
+  // Handle form submission
   if (typeof input !== 'undefined' && input !== null) {
     gs.info("Input detected: " + JSON.stringify(input));
 
@@ -180,7 +170,7 @@ form[name="speakerForm"] button.btn-primary:hover {
     var speakerSysId = '';
     var conferenceSysId = '';
 
-    // Lookup speaker sys_id
+    // Lookup sys_id of selected speaker
     if (details.selectedSpeaker) {
       var userGR = new GlideRecord('sys_user');
       userGR.addQuery('name', details.selectedSpeaker);
@@ -188,19 +178,18 @@ form[name="speakerForm"] button.btn-primary:hover {
       if (userGR.next()) {
         speakerSysId = userGR.getUniqueValue();
       } else {
-        gs.error("Speaker lookup failed for: " + details.selectedSpeaker);
+        return { responseResult: 'FAILURE', errorMessage: 'Speaker lookup failed.' };
       }
     }
 
-    // Lookup conference sys_id
+    // Lookup sys_id of selected conference (optional)
     if (details.selectedConference) {
       var confGR = new GlideRecord('x_1297629_confer_0_conferences');
       confGR.addQuery('name', details.selectedConference);
       confGR.query();
       if (confGR.next()) {
         conferenceSysId = confGR.getUniqueValue();
-      } else {
-        gs.error("Conference lookup failed for: " + details.selectedConference);
+        gs.info("conferenceSysId: " + conferenceSysId);
       }
     }
 
@@ -213,26 +202,26 @@ form[name="speakerForm"] button.btn-primary:hover {
     speakerGR.specialty = details.speakerSpecialty || '';
 
     var newSysId = speakerGR.insert();
-    if (newSysId) {
-      gs.info("Speaker created successfully. Sys ID: " + newSysId);
+    gs.info("After insert, newSysId = " + newSysId);
 
-      // Link speaker to conference via M2M
-      if (conferenceSysId) {
-        var m2mGR = new GlideRecord('x_1297629_confer_0_m2m_x_1297629_co_x_1297629_co');
-        m2mGR.initialize();
-        m2mGR.x_1297629_confer_0_speakers = newSysId; // speaker record
-        m2mGR.x_1297629_confer_0_conferences = conferenceSysId; // conference record
-        var m2mInsert = m2mGR.insert();
-        if (!m2mInsert) {
-          gs.error("Failed to link speaker to conference via M2M. Error: " + m2mGR.getLastErrorMessage());
-        }
-      }
-
-      return { responseResult: 'SUCCESS', sysId: newSysId };
-    } else {
-      gs.error("Insert failed. Last Error: " + speakerGR.getLastErrorMessage());
-      return { responseResult: 'FAILURE' };
+    if (!newSysId) {
+      return {
+        responseResult: 'FAILURE',
+        errorMessage: speakerGR.getLastErrorMessage() || 'Failed to insert speaker.'
+      };
     }
+
+    // Optional M2M link
+    if (conferenceSysId) {
+      var m2mGR = new GlideRecord('x_1297629_confer_0_m2m_x_1297629_co_x_1297629_co');
+      m2mGR.initialize();
+      m2mGR.x_1297629_confer_0_speakers = newSysId;
+      m2mGR.x_1297629_confer_0_conferences = conferenceSysId;
+      m2mGR.insert(); // No need to check result
+    }
+
+    gs.info("Speaker created successfully. Sys ID: " + newSysId);
+    return { responseResult: 'SUCCESS', sysId: newSysId };
   }
 })();]]></script>
         <servicenow>false</servicenow>
@@ -240,14 +229,14 @@ form[name="speakerForm"] button.btn-primary:hover {
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2025-05-27 14:41:43</sys_created_on>
         <sys_id>a864d30983f566109b4a9629feaad359</sys_id>
-        <sys_mod_count>31</sys_mod_count>
+        <sys_mod_count>36</sys_mod_count>
         <sys_name>Create Speaker</sys_name>
         <sys_package display_value="Conference Management" source="x_1297629_confer_0">463ae88383bb12100c1eb3a6feaad383</sys_package>
         <sys_policy/>
         <sys_scope display_value="Conference Management">463ae88383bb12100c1eb3a6feaad383</sys_scope>
         <sys_update_name>sp_widget_a864d30983f566109b4a9629feaad359</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2025-05-27 17:35:24</sys_updated_on>
+        <sys_updated_on>2025-06-18 20:25:00</sys_updated_on>
         <template><![CDATA[<div>
   <form name="speakerForm" novalidate>
     <h3>Who will be a Speaker?</h3>
