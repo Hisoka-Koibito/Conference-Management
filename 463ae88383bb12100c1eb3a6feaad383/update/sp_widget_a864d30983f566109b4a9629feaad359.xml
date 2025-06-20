@@ -4,7 +4,6 @@
         <client_script><![CDATA[api.controller = function($scope) {
   var c = this;
 
-  // Populate dropdowns
   $scope.speakers = c.data.speakers;
   $scope.specialties = c.data.specialties;
   $scope.conferences = c.data.conferences;
@@ -22,7 +21,7 @@
         speakerTitle: $scope.speakerTitle,
         speakerBio: $scope.speakerBio,
         speakerSpecialty: $scope.speakerSpecialty,
-        selectedConference: $scope.selectedConference,
+        selectedConference: $scope.selectedConference
       }
     };
 
@@ -35,6 +34,10 @@
         $scope.speakerBio = '';
         $scope.speakerSpecialty = '';
         $scope.selectedConference = '';
+
+        c.server.get({ action: 'refreshSpeakerList' }).then(function(refreshData) {
+          $scope.speakers = refreshData.data.speakers;
+        });
       }
     });
   };
@@ -115,33 +118,30 @@ form[name="speakerForm"] button.btn-primary:hover {
         <script><![CDATA[(function () {
   gs.info("Widget server script started.");
 
-  // Populate dropdowns
   function populateDropdowns() {
     var speakerList = [];
     var specialtyList = [];
     var conferenceList = [];
 
-    // Get list of users for speaker selection
-   // Get all sys_users who do not already exist in the speakers table
-		var speakerSet = new Set();
-		var existingGR = new GlideRecord('x_1297629_confer_0_speakers');
-		existingGR.query();
-		while (existingGR.next()) {
-			speakerSet.add(existingGR.user.toString());
-		}
+    // Build a set of sys_ids for users already on the speaker table
+    var existingSpeakerIds = new Set();
+    var existingGR = new GlideRecord('x_1297629_confer_0_speakers');
+    existingGR.query();
+    while (existingGR.next()) {
+      existingSpeakerIds.add(existingGR.user.toString());
+    }
 
-		var speakerGR = new GlideRecord('sys_user');
-		speakerGR.query();
-		while (speakerGR.next()) {
-			var userId = speakerGR.getUniqueValue();
-			if (!speakerSet.has(userId)) {
-				speakerList.push(speakerGR.name.toString());
-			}
-		}
-		speakerList.sort();
+    // Populate speaker list from sys_user excluding existing speakers
+    var speakerGR = new GlideRecord('sys_user');
+    speakerGR.query();
+    while (speakerGR.next()) {
+      if (!existingSpeakerIds.has(speakerGR.sys_id.toString())) {
+        speakerList.push(speakerGR.name.toString());
+      }
+    }
+    speakerList.sort();
 
-
-    // Get list of specialty options
+    // Populate specialties from choice list
     var choiceGR = new GlideRecord('sys_choice');
     choiceGR.addQuery('name', 'x_1297629_confer_0_speakers');
     choiceGR.addQuery('element', 'specialty');
@@ -151,14 +151,13 @@ form[name="speakerForm"] button.btn-primary:hover {
     }
     specialtyList.sort();
 
-    // Get list of conferences
+    // Populate conference list
     var confGR = new GlideRecord('x_1297629_confer_0_conferences');
     confGR.query();
     while (confGR.next()) {
       conferenceList.push(confGR.name.toString());
     }
 
-    // Send to client
     data.speakers = speakerList;
     data.specialties = specialtyList;
     data.conferences = conferenceList;
@@ -166,13 +165,14 @@ form[name="speakerForm"] button.btn-primary:hover {
 
   populateDropdowns();
 
-  // Handle form submission
   if (typeof input !== 'undefined' && input !== null) {
     gs.info("Input detected: " + JSON.stringify(input));
 
     if (input.action === 'createNewSpeaker') {
       gs.info("Action detected: createNewSpeaker");
       data.result = createNewSpeaker(input.speakerDetails);
+    } else if (input.action === 'refreshSpeakerList') {
+      populateDropdowns();
     } else {
       gs.error("No action property found in input.");
     }
@@ -182,7 +182,6 @@ form[name="speakerForm"] button.btn-primary:hover {
     var speakerSysId = '';
     var conferenceSysId = '';
 
-    // Lookup sys_id of selected speaker
     if (details.selectedSpeaker) {
       var userGR = new GlideRecord('sys_user');
       userGR.addQuery('name', details.selectedSpeaker);
@@ -194,18 +193,15 @@ form[name="speakerForm"] button.btn-primary:hover {
       }
     }
 
-    // Lookup sys_id of selected conference (optional)
     if (details.selectedConference) {
       var confGR = new GlideRecord('x_1297629_confer_0_conferences');
       confGR.addQuery('name', details.selectedConference);
       confGR.query();
       if (confGR.next()) {
         conferenceSysId = confGR.getUniqueValue();
-        gs.info("conferenceSysId: " + conferenceSysId);
       }
     }
 
-    // Create speaker record
     var speakerGR = new GlideRecord('x_1297629_confer_0_speakers');
     speakerGR.initialize();
     speakerGR.user = speakerSysId || '';
@@ -223,32 +219,32 @@ form[name="speakerForm"] button.btn-primary:hover {
       };
     }
 
-    // Optional M2M link
     if (conferenceSysId) {
       var m2mGR = new GlideRecord('x_1297629_confer_0_m2m_x_1297629_co_x_1297629_co');
       m2mGR.initialize();
       m2mGR.x_1297629_confer_0_speakers = newSysId;
       m2mGR.x_1297629_confer_0_conferences = conferenceSysId;
-      m2mGR.insert(); // No need to check result
+      m2mGR.insert();
     }
 
     gs.info("Speaker created successfully. Sys ID: " + newSysId);
     return { responseResult: 'SUCCESS', sysId: newSysId };
   }
-})();]]></script>
+})();
+]]></script>
         <servicenow>false</servicenow>
         <sys_class_name>sp_widget</sys_class_name>
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2025-05-27 14:41:43</sys_created_on>
         <sys_id>a864d30983f566109b4a9629feaad359</sys_id>
-        <sys_mod_count>37</sys_mod_count>
+        <sys_mod_count>38</sys_mod_count>
         <sys_name>Create Speaker</sys_name>
         <sys_package display_value="Conference Management" source="x_1297629_confer_0">463ae88383bb12100c1eb3a6feaad383</sys_package>
         <sys_policy/>
         <sys_scope display_value="Conference Management">463ae88383bb12100c1eb3a6feaad383</sys_scope>
         <sys_update_name>sp_widget_a864d30983f566109b4a9629feaad359</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2025-06-19 02:10:15</sys_updated_on>
+        <sys_updated_on>2025-06-20 01:01:31</sys_updated_on>
         <template><![CDATA[<div>
   <form name="speakerForm" novalidate>
     <h3>Who will be a Speaker?</h3>
